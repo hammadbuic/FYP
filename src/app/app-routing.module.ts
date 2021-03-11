@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'blank',component: BlankComponent,
   }]},
   { path: 'forbidden',component:ForbiddenComponent},
-  //{path:'assignCoordinator',loadChildren:()=>import('./Modules/Admin/assign-coordinator/assign-coordinator.module').then(m=>m.AssignCoordinatorModule)}
+
 //{path:'home',component:HomeComponent,children:[{path:'blank',component:BlankComponent},{path:'',component:DashboardComponent}]}
 ]
 
