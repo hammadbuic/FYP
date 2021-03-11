@@ -21,6 +21,15 @@
         <label>PhoneNumber</label>
         <input class="form-control" formControlName="PhoneNumber">
     </div>
+    <div class="form-group">
+        <label for="Role">Role</label>
+        <select id="Role" name="Role" class="form-control" formControlName="Role">
+            <!----<option >Admin</option>
+            <option >Coordinator</option>--->
+            <option >Student</option>
+            <option >Supervisor</option>
+        </select>
+    </div>
     <div formGroupName="Passwords">
         <div class="form-group required">
             <label>Password</label>
