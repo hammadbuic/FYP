@@ -5,15 +5,12 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { UserComponent } from './user/user.component';
 import { BlankComponent } from './Views/blank/blank.component';
 import { DashboardComponent } from './Views/dashboard/dashboard.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/user/login' ,pathMatch:'full'},
-  {
-    path: 'user', component: UserComponent,
-    children: [{ path: 'register', component: RegisterComponent },{ path: 'login', component: LoginComponent }],
-  },
+  { path: '', redirectTo: '/login' ,pathMatch:'full'},
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   {path: 'home',component:HomeComponent,canActivate:[AuthGuard],
     children:[{path:'',component:DashboardComponent},{
     path: 'blank',component: BlankComponent,

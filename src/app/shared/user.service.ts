@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 readonly BaseURI='http://localhost:51528/api'
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient,private router:Router) { }
   formModel = this.fb.group({
     FullName: [''],
     UserName: ['', Validators.required],
@@ -39,6 +40,7 @@ readonly BaseURI='http://localhost:51528/api'
       Role:this.formModel.value.Role,
       Password: this.formModel.value.Passwords.Password
     }
+    console.log(body)
     return this.http.post(this.BaseURI+'/ApplicationUser/Register',body)
   }
   login(formData){
@@ -59,4 +61,7 @@ readonly BaseURI='http://localhost:51528/api'
     });
     return isMatch;
   }
+  onLogout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login'])}
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
+
 import { RegisterComponent } from './user/register/register.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms'
 import { UserService } from './shared/user.service';
@@ -21,6 +21,7 @@ import { DashboardComponent } from './Views/dashboard/dashboard.component';
 import { BlankComponent } from './Views/blank/blank.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppButtonComponent } from './Component/app-button/app-button.component';
+import { UserDropdownMenuComponent } from './home/header/user-dropdown-menu/user-dropdown-menu.component';
 
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
@@ -28,7 +29,7 @@ import { AppButtonComponent } from './Component/app-button/app-button.component'
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
+
     RegisterComponent,
     LoginComponent,
     HomeComponent,
@@ -39,6 +40,7 @@ import { AppButtonComponent } from './Component/app-button/app-button.component'
     DashboardComponent,
     BlankComponent,
     AppButtonComponent,
+    UserDropdownMenuComponent,
     //AssignCoordinatorComponent,
 
   ],
