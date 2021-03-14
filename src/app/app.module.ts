@@ -22,6 +22,7 @@ import { BlankComponent } from './Views/blank/blank.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppButtonComponent } from './Component/app-button/app-button.component';
 import { UserDropdownMenuComponent } from './home/header/user-dropdown-menu/user-dropdown-menu.component';
+import { ProfileComponent } from './Views/profile/profile.component';
 
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
@@ -41,6 +42,7 @@ import { UserDropdownMenuComponent } from './home/header/user-dropdown-menu/user
     BlankComponent,
     AppButtonComponent,
     UserDropdownMenuComponent,
+    ProfileComponent,
     //AssignCoordinatorComponent,
 
   ],
