@@ -14,14 +14,15 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard],
-    children: [{ path: '', component: DashboardComponent }, {
-      path: 'blank', component: BlankComponent,
-    }]
+    children: [
+    { path: 'admin', loadChildren: () => import('./Views/admin/admin.module').then(m => m.AdminModule) },
+    { path: '', component: DashboardComponent },
+    {path: 'blank', component: BlankComponent},
+]
   },
   { path: 'profile', component: ProfileComponent },
-  { path: 'forbidden', component: ForbiddenComponent },
-  //{path:'assignCoordinator',loadChildren:()=>import('./Modules/Admin/assign-coordinator/assign-coordinator.module').then(m=>m.AssignCoordinatorModule)}
-  //{path:'home',component:HomeComponent,children:[{path:'blank',component:BlankComponent},{path:'',component:DashboardComponent}]}
+  //{ path: 'admin', loadChildren: () => import('./Views/admin/admin.module').then(m => m.AdminModule) },
+  { path: '**', component: ForbiddenComponent },
 ]
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit,AfterViewInit,ViewChild,Output,EventEmitter, } from '@angular/core';
-import {adminList, MenuItem,coordinatorList,studentList,supervisorList} from "./menu-component";
+import {adminList, MenuItem,} from "./menu-component";
 import { UserService } from 'src/app/shared/user.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class MenuSidebarComponent implements OnInit , AfterViewInit{
     if(this.service.roleMatch(['Admin'])){
       this.sideItems=adminList;
     }
-    if(this.service.roleMatch(['Coordinator'])){
+    /*if(this.service.roleMatch(['Coordinator'])){
       this.sideItems=coordinatorList;
     }
     if(this.service.roleMatch(['Student'])){
@@ -25,7 +25,7 @@ export class MenuSidebarComponent implements OnInit , AfterViewInit{
     }
     if(this.service.roleMatch(['Supervisor'])){
       this.sideItems=supervisorList;
-    }
+    }*/
   }
   ngAfterViewInit() {
     this.mainSidebarHeight.emit(this.mainSidebar.nativeElement.offsetHeight);

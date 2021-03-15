@@ -1,20 +1,20 @@
 export class MenuItem {
     constructor(
         public name: string,
-        //public route: string,
+        public route: string,
         public icon: string = ''
     ) {}
 }
 export const adminList = [
-    new MenuItem('Dashboard','nav-icon fas fa-tachometer-alt'),
-    new MenuItem('Assign Coordinator', 'nav-icon fas fa-tachometer-alt'),
-    new MenuItem('Add Users', 'nav-icon fas fa-tachometer-alt'),
-    new MenuItem('Manage Groups', 'nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Dashboard','dashboard','nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Assign Coordinator', 'assign-coordinator','nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Add Users','manage-users' ,'nav-icon fas fa-tachometer-alt'),
+    /*new MenuItem('Manage Groups', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Manage Activity',  'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Maintain NewsFeed',  'nav-icon fas fa-tachometer-alt'),
-    new MenuItem('View Progress', 'nav-icon fas fa-tachometer-alt'),
+    new MenuItem('View Progress', 'nav-icon fas fa-tachometer-alt'),*/
 ];
-export const coordinatorList = [
+/*export const coordinatorList = [
     new MenuItem('Manage Groups', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Manage Activity', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Maintain NewsFeed', 'nav-icon fas fa-tachometer-alt'),
@@ -30,4 +30,4 @@ export const supervisorList = [
     new MenuItem('View Group', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('See Documents', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Go to Git lab', 'nav-icon fas fa-tachometer-alt'),
-];
+];*/
