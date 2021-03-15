@@ -24,7 +24,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item" *ngFor="let i of sideItems">
-                    <a [routerLink]="['./admin/'+i.route]" class="nav-link">
+                    <a [routerLink]="[role+i.route]" class="nav-link">
                         <i class="{{i.icon}}"></i>
                         <p>
                             {{i.name}}
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a [routerLink]="['admin/manage-users']" class="nav-link">
+                    <a [routerLink]="['/home/blank']" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Blank

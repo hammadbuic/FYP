@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [
     { path: 'admin', loadChildren: () => import('./Views/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'coordinator', loadChildren: () => import('./Views/coordinator/coordinator.module').then(m => m.CoordinatorModule) },
+    { path: 'student', loadChildren: () => import('./Views/student/student.module').then(m => m.StudentModule) },
+    { path: 'supervisor', loadChildren: () => import('./Views/supervisor/supervisor.module').then(m => m.SupervisorModule) },
+
     { path: '', component: DashboardComponent },
     {path: 'blank', component: BlankComponent},
 ]
