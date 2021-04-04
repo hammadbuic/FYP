@@ -1,4 +1,5 @@
-import { Component, OnInit, Renderer2, OnDestroy } from '@angular/core';
+import { AUTO_STYLE } from '@angular/animations';
+import { Component, OnInit, Renderer2, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/shared/user.service';
@@ -6,14 +7,14 @@ import { UserService } from 'src/app/shared/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styles: [
+  styles: [ './register.component.scss'
   ]
 })
 export class RegisterComponent implements OnInit {
-
+roleTab:any='Student'
   constructor(private renderer: Renderer2,public service:UserService,private toastr:ToastrService,private router:Router) { }
-
   ngOnInit(): void {
+    //console.log(this.roleTab)
     this.renderer.addClass(document.querySelector('app-root'), 'register-page');
     this.service.formModel.reset();
   }
@@ -23,8 +24,16 @@ export class RegisterComponent implements OnInit {
       'register-page'
     );
   }
+  onStudentSelect(){
+    this.roleTab="Student"
+    //console.log(this.roleTab="Student")
+  }
+  onSupervisorSelect(){
+    this.roleTab="Supervisor"
+    //console.log(this.roleTab="Supervisor")
+  }
   onSubmit(){
-    this.service.register().subscribe(
+    this.service.register(this.roleTab).subscribe(
       (res:any)=>{
         if(res.succeeded){
           this.service.formModel.reset();

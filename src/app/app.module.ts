@@ -17,13 +17,13 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { HeaderComponent } from './home/header/header.component';
 import { MenuSidebarComponent } from './home/menu-sidebar/menu-sidebar.component';
-import { DashboardComponent } from './Views/dashboard/dashboard.component';
-import { BlankComponent } from './Views/blank/blank.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppButtonComponent } from './Component/app-button/app-button.component';
 import { UserDropdownMenuComponent } from './home/header/user-dropdown-menu/user-dropdown-menu.component';
-import { ProfileComponent } from './Views/profile/profile.component';
-
+import { AdminLoginComponent } from './user/admin-login/admin-login.component';
+import { DataTablesModule } from 'angular-datatables';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AdminService } from './shared/admin.service';
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
 
@@ -38,11 +38,9 @@ import { ProfileComponent } from './Views/profile/profile.component';
     FooterComponent,
     HeaderComponent,
     MenuSidebarComponent,
-    DashboardComponent,
-    BlankComponent,
     AppButtonComponent,
     UserDropdownMenuComponent,
-    ProfileComponent,
+    AdminLoginComponent,
     //AssignCoordinatorComponent,
 
   ],
@@ -55,12 +53,16 @@ import { ProfileComponent } from './Views/profile/profile.component';
     ToastrModule.forRoot({progressBar:true}), // ToastrModule added
     FormsModule,
     NgbModule,
+    DataTablesModule,
+    ModalModule.forRoot()
   ],
   providers: [UserService,{
     provide:HTTP_INTERCEPTORS,
     useClass:AuthInterceptor,
     multi:true
-  }],
+  },
+  AdminService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

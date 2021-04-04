@@ -3,11 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { HomeComponent } from './home/home.component';
+import { AdminLoginComponent } from './user/admin-login/admin-login.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { BlankComponent } from './Views/blank/blank.component';
-import { DashboardComponent } from './Views/dashboard/dashboard.component';
-import { ProfileComponent } from './Views/profile/profile.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
@@ -19,13 +17,11 @@ const routes: Routes = [
     { path: 'coordinator', loadChildren: () => import('./Views/coordinator/coordinator.module').then(m => m.CoordinatorModule) },
     { path: 'student', loadChildren: () => import('./Views/student/student.module').then(m => m.StudentModule) },
     { path: 'supervisor', loadChildren: () => import('./Views/supervisor/supervisor.module').then(m => m.SupervisorModule) },
-
-    { path: '', component: DashboardComponent },
-    {path: 'blank', component: BlankComponent},
+    //{ path: '', component: DashboardComponent },
+    //{path: 'blank', component: BlankComponent},
 ]
   },
-  { path: 'profile', component: ProfileComponent },
-  //{ path: 'admin', loadChildren: () => import('./Views/admin/admin.module').then(m => m.AdminModule) },
+  {path:'admin',component:AdminLoginComponent},
   { path: '**', component: ForbiddenComponent },
 ]
 

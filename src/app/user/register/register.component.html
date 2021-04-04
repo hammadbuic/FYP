@@ -1,139 +1,289 @@
 <div class="register-box">
-    <div class="register-logo">
-      <a [routerLink]="['/']"><b>Admin</b>LTE</a>
-    </div>
-
-    <div class="card">
-      <div class="card-body register-card-body">
-        <p class="login-box-msg">Register a new membership</p>
-
-        <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
-          <div class="input-group mb-3">
-            <input
-              formControlName="FullName"
-              type="text"
-              class="form-control"
-              placeholder="Full name"
-            />
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3 required">
-            <input
-              formControlName="UserName"
-              type="text"
-              class="form-control"
-              placeholder="Enrollment"
-            />
-
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-            <Label class="text-danger"
-            *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">Field
-            is mandatory</Label>
-          </div>
-          <div class="input-group mb-3 required">
-            <input
-              formControlName="Email"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-            />
-
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-            <Label class="text-danger"
-            *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid
-            Email</Label>
-          </div>
-          <div class="input-group mb-3">
-            <input
-              formControlName="PhoneNumber"
-              class="form-control"
-              placeholder="Phone Number"
-            />
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <select id="Role" name="Role" class="form-control" formControlName="Role" placeholder="Role">
-                <!------<option >Admin</option>
-                <option >Coordinator</option>---->
-                <option >Student</option>
-                <option >Supervisor</option>
-            </select>
-          </div>
-          <div formGroupName="Passwords">
-            <div class="input-group mb-3 required">
-                <input
-                  formControlName="Password"
-                  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                />
-
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                  <Label class="text-danger"
-                *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Field
-                is mandatory</Label>
-            <Label class="text-danger"
-                *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum
-                6 Characters Required</Label>
-                </div>
-              </div>
-              <div class="input-group mb-3 required">
-                <input
-                  formControlName="ConfirmPassword"
-                  type="password"
-                  class="form-control"
-                  placeholder="Retype password"
-                />
-
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                  <Label class="text-danger"
-                *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">Field
-                is mandatory</Label>
-            <Label class="text-danger"
-                *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm
-                Password does not match</Label>
-                </div>
-              </div>
-          </div>
-
-          <div class="row">
-            <!-- /.col -->
-            <div class="col-5">
-              <button type="submit" class="btn btn-primary btn-block" [disabled]="!service.formModel.valid">
-                Register
-              </button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
-
-        <a [routerLink]="['/login']" class="text-center"
-          >I already have a membership</a
-        >
-      </div>
-      <!-- /.form-box -->
-    </div>
-    <!-- /.card -->
+  <div class="register-logo">
+    <a [routerLink]="['/']"><b>Acadamic</b>Manager</a>
   </div>
+
+  <div class="card">
+    <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+      <div class="card-header p-0 border-bottom-0">
+        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="custom-tabs-four-Student-tab" data-toggle="pill"
+              href="#custom-tabs-four-Student" role="tab" aria-controls="custom-tabs-four-Student" aria-selected="true"
+              (click)="onStudentSelect()">Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="custom-tabs-four-Supervisor-tab" data-toggle="pill"
+              href="#custom-tabs-four-Supervisor" role="tab" aria-controls="custom-tabs-four-Supervisor"
+              aria-selected="false" (click)="onSupervisorSelect()">Supervisor</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body register-card-body position-relative">
+        <div class="tab-content" id="custom-tabs-four-tabContent">
+          <div class="tab-pane fade show active" id="custom-tabs-four-Student" role="tabpanel"
+            aria-labelledby="custom-tabs-four-Student-tab">
+            <p class="login-box-msg">Register a new membership for student</p>
+            <div class="input-group mb-1">
+              <input formControlName="FullName" type="text" class="form-control" placeholder="Full name" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="FatherName" type="text" class="form-control" placeholder="Father Name" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-1 required">
+              <input formControlName="UserName" type="text" class="form-control" placeholder="Enrollment" />
+
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+                  </svg>
+                </div>
+              </div>
+              <Label class="text-danger"
+                *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">Field
+                is mandatory</Label>
+            </div>
+            <div class="input-group mb-1 required">
+              <input formControlName="Email" type="email" class="form-control" placeholder="Email" />
+
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+              <Label class="text-danger"
+                *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid
+                Email</Label>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="PhoneNumber" class="form-control" placeholder="Phone Number" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                    <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="Address" type="text" class="form-control" placeholder="Address" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="Program" type="text" class="form-control" placeholder="Program" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                    <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <!------<div class="input-group mb-1">
+    <select id="Role" name="Role" class="form-control" formControlName="Role" placeholder="Role">
+        <option >Admin</option>
+        <option >Coordinator</option>
+        <option >Student</option>
+        <option >Supervisor</option>
+    </select>
+  </div>---->
+            <div formGroupName="Passwords">
+              <div class="input-group mb-1 required">
+                <input formControlName="Password" type="password" class="form-control" placeholder="Password" />
+
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Field
+                    is mandatory</Label>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum
+                    6 Characters Required</Label>
+                </div>
+              </div>
+              <div class="input-group mb-1 required">
+                <input formControlName="ConfirmPassword" type="password" class="form-control"
+                  placeholder="Retype password" />
+
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">Field
+                    is mandatory</Label>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm
+                    Password does not match</Label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- /.col -->
+              <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!service.formModel.valid">
+                  Register
+                </button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-Supervisor" role="tabpanel"
+            aria-labelledby="custom-tabs-four-Supervisor-tab">
+            <p class="login-box-msg">Register a new membership for supervisor</p>
+            <div class="input-group mb-1">
+              <input formControlName="FullName" type="text" class="form-control" placeholder="Full Name" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-1 required">
+              <input formControlName="UserName" type="text" class="form-control" placeholder="Username" />
+
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+                  </svg>
+                </div>
+              </div>
+              <Label class="text-danger"
+                *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">Field
+                is mandatory</Label>
+            </div>
+            <div class="input-group mb-1 required">
+              <input formControlName="Email" type="email" class="form-control" placeholder="Email" />
+
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+              <Label class="text-danger"
+                *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid
+                Email</Label>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="PhoneNumber" class="form-control" placeholder="Phone Number" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                    <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="Designation" class="form-control" placeholder="Designation" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="fa fa-university" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="Department" class="form-control" placeholder="Department" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-1">
+              <input formControlName="Program" class="form-control" placeholder="Program" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                    <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!------<div class="input-group mb-1">
+    <select id="Role" name="Role" class="form-control" formControlName="Role" placeholder="Role">
+        <option >Admin</option>
+        <option >Coordinator</option>
+        <option >Student</option>
+        <option >Supervisor</option>
+    </select>
+  </div>---->
+            <div formGroupName="Passwords">
+              <div class="input-group mb-1 required">
+                <input formControlName="Password" type="password" class="form-control" placeholder="Password" />
+
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Field
+                    is mandatory</Label>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum
+                    6 Characters Required</Label>
+                </div>
+              </div>
+              <div class="input-group mb-1 required">
+                <input formControlName="ConfirmPassword" type="password" class="form-control"
+                  placeholder="Retype password" />
+
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">Field
+                    is mandatory</Label>
+                  <Label class="text-danger"
+                    *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm
+                    Password does not match</Label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- /.col -->
+              <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!service.formModel.valid">
+                  Register
+                </button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <a [routerLink]="['/login']" class="text-center">I already have a membership</a>
+    <!-- /.form-box -->
+  </div>
+  <!-- /.card -->
+</div>
