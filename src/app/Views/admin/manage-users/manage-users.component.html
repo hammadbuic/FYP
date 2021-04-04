@@ -4,27 +4,29 @@
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered row-border hover" style="width:100%">
       <thead class="text-center thead-dark">
         <tr>
-          <th>Fullname</th>
           <th>Username</th>
+          <th>Fullname</th>
           <th>Id</th>
           <th>Email</th>
           <th>Phone Number</th>
           <th>Program</th>
           <th>Designation</th>
           <th>Department</th>
+          <th>is_coordiantor</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let supervisor of supervisors"class="text-center">
-          <td>{{supervisor.fullName}}</td>
           <td>{{supervisor.userName}}</td>
+          <td>{{supervisor.fullName}}</td>
           <td>{{supervisor.id}}</td>
           <td>{{supervisor.email}}</td>
           <td>{{supervisor.phoneNumber}}</td>
           <td>{{supervisor.program}}</td>
           <td>{{supervisor.designation}}</td>
           <td>{{supervisor.department}}</td>
+          <td>{{false==supervisor.is_coordiantor ? 'No':'Yes'}}</td>
           <td>
             <div class="btn-group mt-2" role="group">
               <button type="button" class="btn btn-success" ><i class="fas fa-list"></i></button>

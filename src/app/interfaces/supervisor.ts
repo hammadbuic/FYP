@@ -7,4 +7,5 @@ export interface Supervisor {
     program:string,
     designation:string,
     department:string,
+    is_coordiantor:boolean
 }
