@@ -5,6 +5,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
+import { Coordinator } from 'src/app/interfaces/coordinator';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
 @Component({
@@ -13,6 +14,7 @@ import { AdminService } from 'src/app/shared/admin.service';
   styleUrls: ['./manage-users.component.scss']
 })
 export class ManageUsersComponent implements OnInit, OnDestroy {
+  isShown:boolean=false;
   //FormControls for inserting
   insertForm:FormGroup;
   fullName:FormControl;
@@ -22,8 +24,27 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   Program:FormControl;
   Designation:FormControl;
   Department:FormControl;
+  is_coordiantor:FormControl;
+  //FormControls for updating
+  updateForm:FormGroup;
+  _fullName:FormControl;
+  _UserName:FormControl;
+  _Email:FormControl;
+  _PhoneNumber:FormControl;
+  _Program:FormControl;
+  _Designation:FormControl;
+  _Department:FormControl;
+  _id:FormControl;
+  //Form Controlsfor assigningcoordinator
+  coordForm:FormGroup;
+  section:FormControl;
+  supervisorId:FormControl;
   //Add Modal
   @ViewChild('template') modal: TemplateRef<any>;
+  //update Modal
+  @ViewChild('editTemplate') editModal:TemplateRef<any>;
+  //Assign Coord Modal
+  @ViewChild('coordTemplate') coordModal:TemplateRef<any>;
   //Modal properties
   modalMessage:string;
   modalRef:BsModalRef;
@@ -55,7 +76,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     }) //assigned to array and to datatable
     //Modal Message
     this.modalMessage="All Fields are necessary";
-    //intializing properties
+    //intializing add supervisor properties
     this.fullName=new FormControl('',[Validators.required,Validators.maxLength(20)]);
     this.UserName=new FormControl('',[Validators.required,Validators.maxLength(20)]);
   this.Email=new FormControl('',[Validators.required,Validators.maxLength(50)]);
@@ -71,11 +92,71 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     'PhoneNumber':this.PhoneNumber,
     'Program':this.Program,
     'Designation':this.Designation,
-    'Department':this.Department
+    'Department':this.Department,
   });
+  //initializing update supervisor Properties
+  this._fullName=new FormControl('',[Validators.required,Validators.maxLength(20)]);
+  this._UserName=new FormControl('',[Validators.required,Validators.maxLength(20)]);
+  this._Email=new FormControl('',[Validators.required,Validators.maxLength(50)]);
+  this._PhoneNumber=new FormControl('',[Validators.required,Validators.maxLength(11)]);
+  this._Program=new FormControl('',[Validators.required,Validators.maxLength(3)]);
+  this._Designation=new FormControl('',[Validators.required,Validators.maxLength(20)]);
+  this._Department=new FormControl('',[Validators.required,Validators.maxLength(20)]);
+  this._id=new FormControl();
+  this.updateForm=this.fb.group({
+    'id':this._id,
+    'fullName':this._fullName,
+    'UserName':this._UserName,
+    'Email':this._Email,
+    'PhoneNumber':this._PhoneNumber,
+    'Program':this._Program,
+    'Designation':this._Designation,
+    'Department':this._Department,
+  });
+  //initializing Assign Coordinator Properties
+  this.section=new FormControl('',[Validators.required,Validators.maxLength(20)]);
+  this.supervisorId=new FormControl();
+  this.coordForm=this.fb.group({
+    'section':this.section,
+    'supervisorId':this.supervisorId,
+  })
   }
+  //For Loading add coordinator Modal
   onAddSupervisor(){
     this.modalRef=this.modalService.show(this.modal);
+  }
+  //For Loading assign coordinator modal
+  onAssignCoordModal(id:string){
+    this.supervisorId.setValue(id);
+    this.coordForm.setValue({
+      'section':this.section.value,
+      'supervisorId':this.supervisorId.value,
+    })
+    this.modalRef=this.modalService.show(this.coordModal);
+  }
+  //method for assigning the coordinator
+  onAssignCoordinator(){
+    let newCoordinator=this.coordForm.value;
+    console.log(newCoordinator)
+    this.service.assignCoordinator(newCoordinator).subscribe(
+      result=>{
+        console.log("COORDINATOR ADDED");
+        this.toastr.success("Coordinator is assigned to "+ newCoordinator.section);
+        this.service.clearCache();
+        this.supervisors$=this.service.getSupervisors();
+        this.supervisors$.subscribe(
+          updatedList=>{
+            this.supervisors=updatedList;
+            this.modalRef.hide();
+            this.rerender();
+          }
+        )
+      },
+      error=>{
+        console.log("Unable to Assign Coordinator");
+        this.toastr.error("Operation Unsuccessfull");
+      }
+    )
   }
   //Custom method to detect changes
   //destroy old table and load with the change
@@ -88,7 +169,6 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     })
   }
   onSubmit(){
-    console.log("inside submit");
     let newSupervisor=this.insertForm.value;
     this.service.insertSupervisor(newSupervisor).subscribe(
       result=>{
@@ -98,8 +178,8 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
           this.modalRef.hide();
           this.insertForm.reset();
           //this.dtTrigger.next();
-          this.rerender();
         });
+        this.rerender();
         console.log("New Supervisor is added");
         this.toastr.success("Supervisor added successfully");
       },
@@ -109,7 +189,70 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
       }
     )
   }
+  //updating existing supervisor
+  onUpdate(){
+    //console.log(this.updateForm.value);
+    let editSupervisor=this.updateForm.value;
+    this.service.updateSupervisor(editSupervisor.id,editSupervisor).subscribe(
+      result=>{
+        console.log("SUPERVISOR UPDATED");
+        this.toastr.success("Supervisor updated success");
+        this.service.clearCache();
+        this.supervisors$=this.service.getSupervisors();
+        this.supervisors$.subscribe(updatedList=>{
+          this.supervisors=updatedList;
+          this.modalRef.hide();
+          this.rerender()
+        })
+      },
+      error=>{
+        console.log("UNABLE To UPDATE SUPERVISOR");
+        this.toastr.error("Operation Failed");
+      }
+    )
+  }
+  //Load the update Modal
+  onUpdateModal(supervisorEdit:Supervisor):void{
+    this._id.setValue(supervisorEdit.id);
+    this._fullName.setValue(supervisorEdit.fullName);
+    this._UserName.setValue(supervisorEdit.userName);
+    this._Email.setValue(supervisorEdit.email);
+    this._PhoneNumber.setValue(supervisorEdit.phoneNumber);
+    this._Department.setValue(supervisorEdit.department);
+    this._Designation.setValue(supervisorEdit.designation);
+    this._Program.setValue(supervisorEdit.program);
+    this.updateForm.setValue({
+    'id':this._id.value,
+    'fullName':this._fullName.value,
+    'UserName':this._UserName.value,
+    'Email':this._Email.value,
+    'PhoneNumber':this._PhoneNumber.value,
+    'Program':this._Program.value,
+    'Designation':this._Designation.value,
+    'Department':this._Department.value,
+    });
+    this.modalRef=this.modalService.show(this.editModal);
+  }
+  //method to delete supervisor
+  onDeleteSupervisor(supervisor:Supervisor):void{
+    this.service.deleteSupervisor(supervisor.id).subscribe(result=>{
+      this.service.clearCache();
+      this.supervisors$=this.service.getSupervisors();
+      this.supervisors$.subscribe(newList=>
+        {
+          this.supervisors=newList;
+          this.rerender();
+        })
+        this.toastr.success("Supervisor deleted success");
+        console.log("SUPERVISOR DELETED")
+    },
+    error=>{
+      console.log("UNABLE TO DELETE SUPERVISOR");
+      this.toastr.error("Operation Failed");
+    })
+  }
   ngOnDestroy():void {
+    this.service.clearCache();
     this.dtTrigger.unsubscribe()
   }
 }

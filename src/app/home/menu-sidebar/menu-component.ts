@@ -19,6 +19,9 @@ export const coordinatorList = [
     new MenuItem('Manage Activity','manage-activity', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Maintain NewsFeed','maintain-newsfeed', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('View Progress','view-progress', 'nav-icon fas fa-tachometer-alt'),
+    new MenuItem('View Group','view-group','nav-icon fas fa-tachometer-alt'),
+    new MenuItem('See Documents','see-docs', 'nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Go to Git lab','goto-gitlab',  'nav-icon fas fa-tachometer-alt'),
 ];
 export const studentList = [
     new MenuItem('View Project Activity','view-project-activity', 'nav-icon fas fa-tachometer-alt'),

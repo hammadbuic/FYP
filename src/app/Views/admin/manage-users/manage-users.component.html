@@ -30,8 +30,9 @@
           <td>
             <div class="btn-group mt-2" role="group">
               <button type="button" class="btn btn-success" ><i class="fas fa-list"></i></button>
-              <button type="button" class="btn btn-primary"  ><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+              <button type="button" class="btn btn-info" (click)="onAssignCoordModal(supervisor.id)"><i class="fas fa-chalkboard-teacher"></i></button>
+              <button type="button" class="btn btn-primary" (click)="onUpdateModal(supervisor)" ><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger" (click)="onDeleteSupervisor(supervisor)"><i class="fas fa-trash-alt"></i></button>
             </div>
           </td>
         </tr>
@@ -39,7 +40,7 @@
     </table>
   </div>
 </section>
-  <!-- ADD PRODUCT MODAL START-->
+  <!-- ADD MODAL START-->
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title">ADD Supervisor</h4>
@@ -144,4 +145,160 @@
 
   </div>
 </ng-template>
-<!-- ADD PRODUCT MODAL START-->
+<!-- ADD MODAL START-->
+<!-- Update MODAL START-->
+<ng-template #editTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title">Update Supervisor</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p class="list-group-item active text-center text-uppercase">{{modalMessage}}</p>
+    <form [formGroup]="updateForm" (submit)="onUpdate()">
+      <ul class="list-group">
+        <li class="list-group-item" >
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="id"><i class="fa fa-key"></i></span>
+            </div>
+            <input type="text" class="form-control" formControlName="id" />
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="fullName"><i class="fa fa-pencil-square-o"></i></span>
+            </div>
+            <input type="text" id="fullName" formControlName="fullName" class="form-control" placeholder="fullName" aria-label="fullName" aria-describedby="fullName">
+          </div>
+          <div class="errorMessage" *ngIf="fullName.touched && fullName.errors">
+            <span *ngIf="fullName.hasError('required')">Full Name is required.</span>
+            <span *ngIf="fullName.hasError('maxlength')">Only 20 characters allowed for Full Name.</span>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="UserName"><i class="fa fa-pencil-square-o"></i></span>
+            </div>
+            <input type="text" id="_name" formControlName="UserName" class="form-control" placeholder="Username" aria-label="name" aria-describedby="UserName">
+          </div>
+          <div class="errorMessage" *ngIf="UserName.touched && UserName.errors">
+            <span *ngIf="UserName.hasError('required')">User Name is required.</span>
+            <span *ngIf="UserName.hasError('maxlength')">Only 20 characters allowed for User Name.</span>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="Email"><i class="fa fa-pencil-square-o"></i></span>
+            </div>
+            <input type="text" formControlName="Email" class="form-control" placeholder="Enter a valid Email" aria-label="Email" aria-describedby="Email">
+          </div>
+          <div class="errorMessage" *ngIf="Email.touched && Email.errors">
+            <span *ngIf="Email.hasError('required')">Email is required.</span>
+            <span *ngIf="Email.hasError('maxlength')">Only 50 characters allowed for Email.</span>
+          </div>
+        </li>
+        <li class="list-group-item">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="PhoneNumber"><i class="fa fa-pencil-square-o"></i></span>
+              </div>
+              <input type="text" formControlName="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" aria-label="PhoneNumber" aria-describedby="PhoneNumber">
+            </div>
+            <div class="errorMessage" *ngIf="PhoneNumber.touched && PhoneNumber.errors">
+              <span *ngIf="PhoneNumber.hasError('required')">PhoneNumber is required.</span>
+              <span *ngIf="PhoneNumber.hasError('maxlength')">Only 11 characters allowed for PhoneNumber.</span>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="Program"><i class="fa fa-pencil-square-o"></i></span>
+              </div>
+              <input type="text" formControlName="Program" class="form-control" placeholder="Enter Program" aria-label="Program" aria-describedby="Program">
+            </div>
+            <div class="errorMessage" *ngIf="Program.touched && Program.errors">
+              <span *ngIf="_Program.hasError('required')">Program is required.</span>
+              <span *ngIf="_Program.hasError('maxlength')">Only 3 characters allowed for Program.</span>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="Designation"><i class="fa fa-pencil-square-o"></i></span>
+              </div>
+              <input type="text" formControlName="Designation" class="form-control" placeholder="Enter Designation" aria-label="Designation" aria-describedby="Designation">
+            </div>
+            <div class="errorMessage" *ngIf="Designation.touched && Designation.errors">
+              <span *ngIf="Designation.hasError('required')">Designation is required.</span>
+              <span *ngIf="Designation.hasError('maxlength')">Only 20 characters allowed for Designation.</span>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="Department"><i class="fa fa-pencil-square-o"></i></span>
+              </div>
+              <input type="text" formControlName="Department" class="form-control" placeholder="Enter Department" aria-label="Department" aria-describedby="Department">
+            </div>
+            <div class="errorMessage" *ngIf="Department.touched && Department.errors">
+              <span *ngIf="Department.hasError('required')">Department is required.</span>
+              <span *ngIf="Department.hasError('maxlength')">Only 11 characters allowed for Department.</span>
+            </div>
+          </li>
+        <li class="list-group-item">
+          <button type="submit" [disabled]="updateForm.invalid"  class="btn btn-primary btn-block">UPDATE</button>
+        </li>
+      </ul>
+
+    </form>
+
+  </div>
+</ng-template>
+<!-- Update MODAL START-->
+<!-- Coordinator MODAL START-->
+<ng-template #coordTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title">Assign Coordinator Role</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p class="list-group-item active text-center text-uppercase">{{modalMessage}}</p>
+    <form [formGroup]="coordForm" (submit)="onAssignCoordinator()">
+      <ul class="list-group">
+        <li class="list-group-item" >
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="supervisorId"><i class="fa fa-key"></i></span>
+            </div>
+            <input type="text" class="form-control" formControlName="supervisorId" />
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="section"><i class="fa fa-pencil-square-o"></i></span>
+            </div>
+            <input type="text" id="section" formControlName="section" class="form-control" placeholder="section" aria-label="section" aria-describedby="section">
+          </div>
+          <div class="errorMessage" *ngIf="section.touched && section.errors">
+            <span *ngIf="section.hasError('required')">Section is required.</span>
+            <span *ngIf="section.hasError('maxlength')">Only 20 characters allowed for Full Name.</span>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <button type="submit" [disabled]="coordForm.invalid"  class="btn btn-primary btn-block">ASSIGN</button>
+        </li>
+      </ul>
+
+    </form>
+
+  </div>
+</ng-template>
+<!-- Update MODAL START-->

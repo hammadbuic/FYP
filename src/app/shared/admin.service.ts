@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Supervisor } from '../interfaces/supervisor';
 import { Observable } from "rxjs";
 import { flatMap, first, shareReplay } from "rxjs/operators";
+import { Coordinator } from '../interfaces/coordinator';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,7 @@ export class AdminService {
   private supervisorAddURL: string = "/admin/insertSupervisor/";
   private supervisorUpdateURL: string = "/admin/updateSupervisor/";
   private supervisorDeleteURL: string = "/admin/deleteSupervisor/";
+  private assignCoordinatorURL:string="/admin/makeCoordinator/";
   private supervisors$: Observable<Supervisor[]>;
   //GEt all the supervisor
   getSupervisors(): Observable<Supervisor[]> {
@@ -38,6 +40,10 @@ export class AdminService {
   //Delete a Supervisor
   deleteSupervisor(id: string,): Observable<any> {
     return this.http.delete(this.BaseURL+this.supervisorDeleteURL+id);
+  }
+  //assign coordinator role to a supervisor
+  assignCoordinator(coordinator:Coordinator):Observable<Coordinator>{
+    return this.http.post<Coordinator>(this.BaseURL+this.assignCoordinatorURL,coordinator);
   }
   //clear cache
   clearCache() {
