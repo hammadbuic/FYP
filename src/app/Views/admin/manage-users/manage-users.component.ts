@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { Coordinator } from 'src/app/interfaces/coordinator';
+import { GitUser } from 'src/app/interfaces/GitUser';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
 @Component({
@@ -169,7 +170,19 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     })
   }
   onSubmit(){
+    //let newSupervisorUser:any;//declare
     let newSupervisor=this.insertForm.value;
+    //  let name=newSupervisor.fullName;
+    // console.log(name);
+    //setting values
+    // newSupervisorUser.name=name;
+    // newSupervisorUser.email=newSupervisor.Email;
+    // newSupervisorUser.username=newSupervisor.UserName;
+    // newSupervisorUser.reset_password=true;
+    // newSupervisorUser.can_create_group=false;
+    // newSupervisorUser.skip_confirmation=false;
+    // //displaying on console
+    //console.log(newSupervisorUser);
     this.service.insertSupervisor(newSupervisor).subscribe(
       result=>{
         this.service.clearCache();
