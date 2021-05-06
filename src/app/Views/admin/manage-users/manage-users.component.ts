@@ -170,37 +170,46 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     })
   }
   onSubmit(){
-    //let newSupervisorUser:any;//declare
+    let newSupervisorUser:any={};//declare
     let newSupervisor=this.insertForm.value;
-    //  let name=newSupervisor.fullName;
+    //  let name=;
     // console.log(name);
     //setting values
-    // newSupervisorUser.name=name;
-    // newSupervisorUser.email=newSupervisor.Email;
-    // newSupervisorUser.username=newSupervisor.UserName;
-    // newSupervisorUser.reset_password=true;
-    // newSupervisorUser.can_create_group=false;
-    // newSupervisorUser.skip_confirmation=false;
-    // //displaying on console
-    //console.log(newSupervisorUser);
-    this.service.insertSupervisor(newSupervisor).subscribe(
+    newSupervisorUser.name=newSupervisor.fullName;
+    newSupervisorUser.email=newSupervisor.Email;
+    newSupervisorUser.username=newSupervisor.UserName;
+    newSupervisorUser.reset_password=true;
+    newSupervisorUser.can_create_group=false;
+    newSupervisorUser.skip_confirmation=false;
+    //displaying on console
+    console.log(newSupervisorUser);
+    this.service.createGitSupervisor(newSupervisorUser).subscribe(
       result=>{
-        this.service.clearCache();
-        this.supervisors$.subscribe(newList=>{
-          this.supervisors=newList;
-          this.modalRef.hide();
-          this.insertForm.reset();
-          //this.dtTrigger.next();
-        });
-        this.rerender();
-        console.log("New Supervisor is added");
-        this.toastr.success("Supervisor added successfully");
+        console.log("Git Registration successfull");
+        this.service.insertSupervisor(newSupervisor).subscribe(
+          result=>{
+            this.service.clearCache();
+            this.supervisors$.subscribe(newList=>{
+              this.supervisors=newList;
+              this.modalRef.hide();
+              this.insertForm.reset();
+              //this.dtTrigger.next();
+            });
+            this.rerender();
+            console.log("New Supervisor is added");
+            this.toastr.success("Supervisor added successfully");
+          },
+          error=>{
+            console.log("Unable to add supervisor");
+            this.toastr.error("Operation Unsuccessfull");
+          }
+        )
       },
       error=>{
-        console.log("Unable to add supervisor");
-        this.toastr.error("Operation Unsuccessfull");
+        console.log(" Git Registration Unsuccessfull");
       }
     )
+
   }
   //updating existing supervisor
   onUpdate(){
