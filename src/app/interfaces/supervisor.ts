@@ -7,5 +7,8 @@ export interface Supervisor {
     program:string,
     designation:string,
     department:string,
-    is_coordiantor:boolean
+    is_coordiantor:boolean,
+    gitID:number,
+    webURL:string,
+    createdAt:Date
 }

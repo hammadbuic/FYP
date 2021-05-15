@@ -29,7 +29,7 @@
           <td>{{false==supervisor.is_coordiantor ? 'No':'Yes'}}</td>
           <td>
             <div class="btn-group mt-2" role="group">
-              <button type="button" class="btn btn-success" ><i class="fas fa-list"></i></button>
+              <button type="button" class="btn btn-success" (click)="onSelect(supervisor)" ><i class="fas fa-list"></i></button>
               <button type="button" class="btn btn-info" (click)="onAssignCoordModal(supervisor.id)"><i class="fas fa-chalkboard-teacher"></i></button>
               <button type="button" class="btn btn-primary" (click)="onUpdateModal(supervisor)" ><i class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-danger" (click)="onDeleteSupervisor(supervisor)"><i class="fas fa-trash-alt"></i></button>

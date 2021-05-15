@@ -6,10 +6,12 @@ import { HomeComponent } from './home/home.component';
 import { AdminLoginComponent } from './user/admin-login/admin-login.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { ProfileComponent } from './Views/Common/profile/profile.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  {path:':id',component:ProfileComponent},
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [

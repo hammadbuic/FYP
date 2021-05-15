@@ -1,6 +1,7 @@
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
@@ -59,7 +60,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   //Data Table directive
   @ViewChild(DataTableDirective) dtElement:DataTableDirective;
   constructor(private service:AdminService,private modalService:BsModalService,
-    private fb:FormBuilder,private changeRef:ChangeDetectorRef,private toastr:ToastrService) { }
+    private fb:FormBuilder,private changeRef:ChangeDetectorRef,private toastr:ToastrService,private route:Router) { }
 
   ngOnInit(): void {
     this.dtOptions={
@@ -121,6 +122,11 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     'section':this.section,
     'supervisorId':this.supervisorId,
   })
+  }
+  //on selecting a supervisor
+  onSelect(supervisor:Supervisor){
+    this.selectedSupervisor=supervisor;
+    this.route.navigateByUrl(supervisor.id);
   }
   //For Loading add coordinator Modal
   onAddSupervisor(){
@@ -185,7 +191,12 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
     console.log(newSupervisorUser);
     this.service.createGitSupervisor(newSupervisorUser).subscribe(
       result=>{
+        console.log(result.id);
+        newSupervisor.gitID=result.id;
+        newSupervisor.webURL=result.web_url;
+        newSupervisor.createdAt=result.created_at;
         console.log("Git Registration successfull");
+        console.log(newSupervisor);
         this.service.insertSupervisor(newSupervisor).subscribe(
           result=>{
             this.service.clearCache();

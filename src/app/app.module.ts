@@ -24,6 +24,7 @@ import { AdminLoginComponent } from './user/admin-login/admin-login.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AdminService } from './shared/admin.service';
+import { ProfileComponent } from './Views/Common/profile/profile.component';
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
 
@@ -41,6 +42,7 @@ import { AdminService } from './shared/admin.service';
     AppButtonComponent,
     UserDropdownMenuComponent,
     AdminLoginComponent,
+    ProfileComponent,
     //AssignCoordinatorComponent,
 
   ],
