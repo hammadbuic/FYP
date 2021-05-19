@@ -11,7 +11,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  {path:':id',component:ProfileComponent},
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [
@@ -19,6 +18,7 @@ const routes: Routes = [
     { path: 'coordinator', loadChildren: () => import('./Views/coordinator/coordinator.module').then(m => m.CoordinatorModule) },
     { path: 'student', loadChildren: () => import('./Views/student/student.module').then(m => m.StudentModule) },
     { path: 'supervisor', loadChildren: () => import('./Views/supervisor/supervisor.module').then(m => m.SupervisorModule) },
+    //{path:':id',component:ProfileComponent},
     //{ path: '', component: DashboardComponent },
     //{path: 'blank', component: BlankComponent},
 ]

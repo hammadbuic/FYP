@@ -4,16 +4,16 @@ import { AuthGuard } from 'src/app/auth/auth.guard';
 import { ProfileComponent } from '../Common/profile/profile.component';
 
 import { AdminComponent } from './admin.component';
-import { AssignCoordinatorComponent } from './assign-coordinator/assign-coordinator.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManageStudentsComponent } from './manage-students/manage-students.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 const routes: Routes = [
   //{ path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'assign-coordinator', component: AssignCoordinatorComponent },
+  { path: 'manage-students', component: ManageStudentsComponent },
   { path: 'manage-users', component: ManageUsersComponent,canActivate:[AuthGuard],data:{permittedRoles:['Admin']} },
-  //{path:":id",component:ProfileComponent}
+  {path:":id",component:ProfileComponent}
 ];
 
 @NgModule({

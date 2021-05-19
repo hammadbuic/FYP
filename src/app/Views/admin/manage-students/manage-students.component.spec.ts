@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignCoordinatorComponent } from './assign-coordinator.component';
+import { ManageStudentsComponent } from './manage-students.component';
 
-describe('AssignCoordinatorComponent', () => {
-  let component: AssignCoordinatorComponent;
-  let fixture: ComponentFixture<AssignCoordinatorComponent>;
+describe('ManageStudentsComponent', () => {
+  let component: ManageStudentsComponent;
+  let fixture: ComponentFixture<ManageStudentsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssignCoordinatorComponent ]
+      declarations: [ ManageStudentsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssignCoordinatorComponent);
+    fixture = TestBed.createComponent(ManageStudentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

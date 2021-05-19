@@ -7,8 +7,8 @@ export class MenuItem {
 }
 export const adminList = [
     new MenuItem('Dashboard','dashboard','nav-icon fas fa-tachometer-alt'),
-    new MenuItem('Assign Coordinator', 'assign-coordinator','nav-icon fas fa-tachometer-alt'),
-    new MenuItem('Add Users','manage-users' ,'nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Manage Students', 'manage-students','nav-icon fas fa-tachometer-alt'),
+    new MenuItem('Manage Supervisor','manage-users' ,'nav-icon fas fa-tachometer-alt'),
     /*new MenuItem('Manage Groups', 'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Manage Activity',  'nav-icon fas fa-tachometer-alt'),
     new MenuItem('Maintain NewsFeed',  'nav-icon fas fa-tachometer-alt'),

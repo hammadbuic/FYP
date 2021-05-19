@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from "@angular/common/http";
 import { Supervisor } from '../interfaces/supervisor';
+import { Student } from '../interfaces/student';
 import { Observable } from "rxjs";
 import { flatMap, first, shareReplay } from "rxjs/operators";
 import { Coordinator } from '../interfaces/coordinator';
@@ -12,12 +13,17 @@ export class AdminService {
   readonly GitURL='https://20.197.56.146/api/v4'
   constructor(private http: HttpClient) { }
   private supervisorListURL: string = "/admin/getsupervisors/";
+  private studentListURL:string="/admin/getstudents/";
   private supervisorAddURL: string = "/admin/insertSupervisor/";
+  private studentAddURL:string="/admin/insertstudent/"
   private supervisorUpdateURL: string = "/admin/updateSupervisor/";
+  private studentUpdateURL:string="/admin/updatestudent/";
   private supervisorDeleteURL: string = "/admin/deleteSupervisor/";
+  private studentDeleteURL:string="/admin/deletestudent/";
   private assignCoordinatorURL:string="/admin/makeCoordinator/";
   private gitUserCreationURL:string="/users";
   private supervisors$: Observable<Supervisor[]>;
+  private students$:Observable<Student[]>;
   //GEt all the supervisor
   getSupervisors(): Observable<Supervisor[]> {
     //if cache not exist
@@ -53,6 +59,35 @@ export class AdminService {
     //   'Authorization':'493rDyBuzt4iVLAYpfbH'
     // });
     return this.http.post<any>('@api-x/'+this.GitURL+this.gitUserCreationURL,supervisor);
+  }
+  //GEt all the students
+  getStudents(): Observable<Student[]> {
+    //if cache not exist
+    if(!this.students$){
+      this.students$=this.http.get<Student[]>(this.BaseURL+this.studentListURL).pipe(shareReplay());
+    }
+    //if cache exist return it
+    return this.students$;
+  }
+  //get student by id
+  getStudentById(id:string): Observable<Student> {
+    return this.getStudents().pipe(flatMap(result=>result),first(student=>student.id == id));
+  }
+  //insert a student
+  insertStudent(newStudent: Student): Observable<Student> {
+    return this.http.post<Student>(this.BaseURL+this.studentAddURL,newStudent);
+  }
+  //Update a student
+  updateStudent(id: string, editStudent: Student): Observable<Student> {
+    return this.http.put<Student>(this.BaseURL+this.studentUpdateURL+id,editStudent);
+  }
+  //Delete a Student
+  deleteStudent(id: string,): Observable<any> {
+    return this.http.delete(this.BaseURL+this.studentDeleteURL+id);
+  }
+  //clear student cache
+  clearStudentCache(){
+    this.students$=null;
   }
   //clear cache
   clearCache() {

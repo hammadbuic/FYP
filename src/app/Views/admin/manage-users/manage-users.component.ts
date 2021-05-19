@@ -65,7 +65,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dtOptions={
       pagingType:'full_numbers',        //pages
-      pageLength: 5,                    //5 elements will be shown
+      pageLength: 10,                    //5 elements will be shown
       autoWidth:true,
       //order:[[0,'desc']]
     };
@@ -125,8 +125,8 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   }
   //on selecting a supervisor
   onSelect(supervisor:Supervisor){
-    this.selectedSupervisor=supervisor;
-    this.route.navigateByUrl(supervisor.id);
+     this.selectedSupervisor=supervisor;
+     this.route.navigateByUrl("/home/admin/"+supervisor.id);
   }
   //For Loading add coordinator Modal
   onAddSupervisor(){
