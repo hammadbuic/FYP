@@ -29,10 +29,11 @@
     "datatables.net-dt": "^1.10.24",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-select-dropdown": "^2.1.0",
     "ngx-toastr": "^13.2.1",
     "popper.js": "^1.16.1",
     "rxjs": "^6.6.7",
-    "tslib": "^2.0.0",
+    "tslib": "^2.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

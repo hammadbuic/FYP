@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Student } from 'src/app/interfaces/student';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
 
@@ -9,7 +10,8 @@ import { AdminService } from 'src/app/shared/admin.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  @Input() supervisor:Supervisor
+  @Input() supervisor:Supervisor;
+  @Input() student:Student;
   constructor(
     private route:ActivatedRoute,
     private router:Router,
@@ -18,11 +20,21 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     let id=this.route.snapshot.params['id'];
-    this.service.getSupervisorById(id).subscribe(
-      result=>{
-        this.supervisor=result;
-      }
-    )
+    if(this.service.getSupervisorById(id) != null){
+      this.service.getSupervisorById(id).subscribe(
+        result=>{
+          this.supervisor=result;
+        }
+      )
+    }
+    if(this.service.getStudentById(id) != null){
+      this.service.getStudentById(id).subscribe(
+        result=>{
+          this.student=result;
+        }
+      )
+    }
+
   }
 
 }

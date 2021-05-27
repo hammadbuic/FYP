@@ -85,6 +85,13 @@ export class AdminService {
   deleteStudent(id: string,): Observable<any> {
     return this.http.delete(this.BaseURL+this.studentDeleteURL+id);
   }
+  //creating gitlab account
+  createGitStudent(student:any):Observable<any>{
+    // const httpHeaders=new HttpHeaders({
+    //   'Authorization':'493rDyBuzt4iVLAYpfbH'
+    // });
+    return this.http.post<any>('@api-x/'+this.GitURL+this.gitUserCreationURL,student);
+  }
   //clear student cache
   clearStudentCache(){
     this.students$=null;

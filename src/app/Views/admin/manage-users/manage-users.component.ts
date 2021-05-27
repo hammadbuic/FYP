@@ -6,8 +6,6 @@ import { DataTableDirective } from 'angular-datatables';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
-import { Coordinator } from 'src/app/interfaces/coordinator';
-import { GitUser } from 'src/app/interfaces/GitUser';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
 @Component({
@@ -75,7 +73,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
       //console.log(result)
       this.changeRef.detectChanges();     //Detect Changes before table load
       this.dtTrigger.next();
-    }) //assigned to array and to datatable
+    }); //assigned to array and to datatable
     //Modal Message
     this.modalMessage="All Fields are necessary";
     //intializing add supervisor properties

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { RegisterComponent } from './user/register/register.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms'
 import { UserService } from './shared/user.service';
@@ -25,6 +24,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AdminService } from './shared/admin.service';
 import { ProfileComponent } from './Views/Common/profile/profile.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
 
@@ -56,7 +56,8 @@ import { ProfileComponent } from './Views/Common/profile/profile.component';
     FormsModule,
     NgbModule,
     DataTablesModule,
-    ModalModule.forRoot()
+    SelectDropDownModule,
+    ModalModule.forRoot(),
   ],
   providers: [UserService,{
     provide:HTTP_INTERCEPTORS,
