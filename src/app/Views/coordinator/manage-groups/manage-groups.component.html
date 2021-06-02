@@ -10,19 +10,21 @@
                     <th>Group Name</th>
                     <th>Members</th>
                     <th>Supervisor</th>
+                    <th>Project ID</th>
                     <th>Project Name</th>
                     <th>Project Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
+                <tr *ngFor="let group of groups" class="text-center">
+                    <td>{{group.groupId}}</td>
+                    <td>{{group.groupName}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{group.username}}</td>
+                    <td>{{group.projectId}}</td>
+                    <td>{{group.projectName}}</td>
+                    <td>{{group.projectDescription}}</td>
                     <td>
                         <div class="btn-group mt-2" role="group">
                             <button type="button" class="btn btn-success"><i class="fas fa-list"></i></button>
@@ -62,7 +64,7 @@
                             <span class="input-group-text" id="Members"><i class="fa fa-pencil-square-o"></i></span>
                         </div>
                         <div class="abc">
-                            <ngx-select-dropdown [config]="config" [options]="studentOptions"
+                            <ngx-select-dropdown [config]="config" [options]="studentOptions" formControlName="SelectedStudents"
                             [multiple]="true" ></ngx-select-dropdown>
                         </div>
 
@@ -73,8 +75,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="Supervisor"><i class="fa fa-pencil-square-o"></i></span>
                         </div>
-                        <input type="text" formControlName="Supervisor" class="form-control" placeholder="Supervisor"
-                            aria-label="Supervisor" aria-describedby="Supervisor">
+                        <div class="abc">
+                            <ngx-select-dropdown [config]="config" [options]="supervisorOptions" formControlName="Supervisor"
+                            [multiple]="false" ></ngx-select-dropdown>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item">
