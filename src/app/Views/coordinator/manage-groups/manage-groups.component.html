@@ -28,8 +28,8 @@
                     <td>
                         <div class="btn-group mt-2" role="group">
                             <button type="button" class="btn btn-success"><i class="fas fa-list"></i></button>
-                            <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-primary" (click)="onUpdateModal(group)"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-danger" (click)="onDelete(group)"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </td>
                 </tr>
@@ -114,7 +114,7 @@
 <!-- Update MODAL START-->
 <ng-template #editTemplate>
     <div class="modal-header">
-        <h4 class="modal-title">Update STUDENT</h4>
+        <h4 class="modal-title">Update Group</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -123,6 +123,14 @@
         <p class="list-group-item active text-center text-uppercase">{{modalMessage}}</p>
         <form [formGroup]="updateForm" (submit)="onUpdate()">
             <ul class="list-group">
+                <li class="list-group-item" >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="id"><i class="fa fa-key"></i></span>
+                      </div>
+                      <input type="text" class="form-control" formControlName="id" />
+                    </div>
+                  </li>
                 <li class="list-group-item">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -131,22 +139,17 @@
                         <input type="text" id="GroupName" formControlName="GroupName" class="form-control"
                             placeholder="GroupName" aria-label="GroupName" aria-describedby="GroupName">
                     </div>
-                    <div class="errorMessage" *ngIf="GroupName.touched && GroupName.errors">
-                        <span *ngIf="GroupName.hasError('required')">Group Name is required.</span>
-                        <span *ngIf="GroupName.hasError('maxlength')">Only 20 characters allowed for Group Name.</span>
-                    </div>
                 </li>
                 <li class="list-group-item">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="Members"><i class="fa fa-pencil-square-o"></i></span>
                         </div>
-                        <input type="text" id="Members" formControlName="Members" class="form-control"
-                            placeholder="Members" aria-label="name" aria-describedby="Members">
-                    </div>
-                    <div class="errorMessage" *ngIf="Members.touched && Members.errors">
-                        <span *ngIf="Members.hasError('required')">Members is required.</span>
-                        <span *ngIf="Members.hasError('maxlength')">Only 20 characters allowed for Members.</span>
+                        <div class="abc">
+                            <ngx-select-dropdown [config]="config" [options]="studentOptions" formControlName="SelectedStudents"
+                            [multiple]="true" ></ngx-select-dropdown>
+                        </div>
+
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -154,14 +157,20 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="Supervisor"><i class="fa fa-pencil-square-o"></i></span>
                         </div>
-                        <input type="text" formControlName="Supervisor" class="form-control" placeholder="Supervisor"
-                            aria-label="Supervisor" aria-describedby="Supervisor">
-                    </div>
-                    <div class="errorMessage" *ngIf="Supervisor.touched && Supervisor.errors">
-                        <span *ngIf="Supervisor.hasError('required')">Supervisor is required.</span>
-                        <span *ngIf="Supervisor.hasError('maxlength')">Only 50 characters allowed for Supervisor.</span>
+                        <div class="abc">
+                            <ngx-select-dropdown [config]="config" [options]="supervisorOptions" formControlName="Supervisor"
+                            [multiple]="false" ></ngx-select-dropdown>
+                        </div>
                     </div>
                 </li>
+                <li class="list-group-item" >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="ProjectId"><i class="fa fa-key"></i></span>
+                      </div>
+                      <input type="text" class="form-control" formControlName="ProjectId" />
+                    </div>
+                  </li>
                 <li class="list-group-item">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -169,11 +178,6 @@
                         </div>
                         <input type="text" formControlName="ProjectName" class="form-control" placeholder="ProjectName"
                             aria-label="ProjectName" aria-describedby="ProjectName">
-                    </div>
-                    <div class="errorMessage" *ngIf="ProjectName.touched && ProjectName.errors">
-                        <span *ngIf="ProjectName.hasError('required')">Project Name is required.</span>
-                        <span *ngIf="ProjectName.hasError('maxlength')">Only 11 characters allowed for
-                            Project Name.</span>
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -186,15 +190,9 @@
                             placeholder="ProjectDescription" aria-label="ProjectDescription"
                             aria-describedby="ProjectDescription">
                     </div>
-                    <div class="errorMessage" *ngIf="RegistrationNumber.touched && RegistrationNumber.errors">
-                        <span *ngIf="RegistrationNumber.hasError('required')">Project Description is required.</span>
-                        <span *ngIf="RegistrationNumber.hasError('maxlength')">Only 20 characters allowed for
-                            Project Description.</span>
-                    </div>
                 </li>
                 <li class="list-group-item">
-                    <button type="submit" [disabled]="updateForm.invalid"
-                        class="btn btn-primary btn-block">Update</button>
+                    <button type="submit" [disabled]="insertForm.invalid" class="btn btn-primary btn-block">UPDATE</button>
                 </li>
             </ul>
 

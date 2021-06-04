@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { flatMap, first, shareReplay } from "rxjs/operators";
 import { Group } from "../interfaces/group";
 import { StudentGroup } from "../interfaces/student-group";
+import { Student } from '../interfaces/student';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,9 @@ export class GroupService {
   private groupAddURL='/groups/postgroup/';
   private studentGroupAssignURL="/groups/assignstudent";
   private groupUpdateURL='/groups/putgroup/';
-  private groupDeleteURL='groups/';
+  private groupDeleteURL='/groups/';
+  private getStudentsByGroupURL='/groups/getStudentsByGroup/';
+  private updateStudentsByGroupURL='/groups/updateStudentsByGroupId/';
   private groups$:Observable<Group[]>;
   getGroups():Observable<Group[]>{
     if(!this.groups$)
@@ -27,6 +30,9 @@ export class GroupService {
   getGroupById(groupId:Number):Observable<Group>{
     return this.getGroups().pipe(flatMap(result=>result),first(group=>group.groupId==groupId));
   }
+  getStudentsByGroup(groupId:Number):Observable<Student[]>{
+    return this.http.get<Student[]>(this.BaseURL+this.getStudentsByGroupURL+groupId);
+  }
   addGroup(newGroup:Group):Observable<Group>{
     return this.http.post<Group>(this.BaseURL+this.groupAddURL,newGroup);
   }
@@ -35,6 +41,9 @@ export class GroupService {
   }
   updateGroup(id:Number,updateGroup:Group):Observable<Group>{
     return this.http.put<Group>(this.BaseURL+this.groupUpdateURL+id,updateGroup);
+  }
+  updateStudentsInGroup(groupId:Number,students:StudentGroup[]):Observable<StudentGroup[]>{
+    return this.http.put<StudentGroup[]>(this.BaseURL+this.updateStudentsByGroupURL+groupId,students);
   }
   deleteGroup(groupId:Number):Observable<any>{
     return this.http.delete(this.BaseURL+this.groupDeleteURL+groupId);
