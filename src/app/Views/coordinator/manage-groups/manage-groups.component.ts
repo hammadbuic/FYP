@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
@@ -13,12 +13,13 @@ import { GroupService } from 'src/app/shared/group.service';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { StudentGroup } from 'src/app/interfaces/student-group';
 import { ThisReceiver } from '@angular/compiler';
+import { UserService } from 'src/app/shared/user.service';
 @Component({
   selector: 'app-manage-groups',
   templateUrl: './manage-groups.component.html',
   styleUrls: ['./manage-groups.component.scss']
 })
-export class ManageGroupsComponent implements OnInit {
+export class ManageGroupsComponent implements OnInit,OnDestroy {
   groups$:Observable<Group[]>;
   selectedGroup:Group;
   groups:Group[]=[];
@@ -73,7 +74,7 @@ dtOptions: DataTables.Settings = {};
 dtTrigger:Subject<any>=new Subject();
 //Data Table directive
 @ViewChild(DataTableDirective) dtElement:DataTableDirective;
-  constructor(private service:AdminService,private groupService:GroupService,private modalService:BsModalService,
+  constructor(private service:AdminService,private userService:UserService,private groupService:GroupService,private modalService:BsModalService,
     private fb:FormBuilder,private changeRef:ChangeDetectorRef,private toastr:ToastrService,private route:Router) { }
 
   ngOnInit(): void {
@@ -131,6 +132,9 @@ dtTrigger:Subject<any>=new Subject();
         });
         this.service.getSupervisors().subscribe(result=>{
           this.supervisorOptions=result;
+        })
+        this.userService.getUserProfile().subscribe(result=>{
+          console.log(result);
         })
   }
   //loading add group modal
@@ -285,5 +289,9 @@ dtTrigger:Subject<any>=new Subject();
   }
   reset() {//Example
     this.resetOption = [];
+  }
+  ngOnDestroy(){
+    this.groupService.clearCache();
+    this.service.clearCache();
   }
 }

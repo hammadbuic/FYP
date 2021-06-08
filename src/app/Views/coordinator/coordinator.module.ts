@@ -14,7 +14,8 @@ import { ViewGroupComponent } from './view-group/view-group.component';
 import { SeeDocsComponent } from './see-docs/see-docs.component';
 import { GotoGitlabComponent } from './goto-gitlab/goto-gitlab.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 @NgModule({
   declarations: [CoordinatorComponent, ManageGroupsComponent, ManageActivityComponent, MaintainNewsfeedComponent, ViewProgressComponent, ViewGroupComponent, SeeDocsComponent, GotoGitlabComponent],
   imports: [
@@ -24,6 +25,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     ReactiveFormsModule,
     DataTablesModule,
     SelectDropDownModule,
+    AccordionModule,
+    BsDatepickerModule.forRoot(),
     ModalModule,ToastrModule.forRoot()
   ]
 })

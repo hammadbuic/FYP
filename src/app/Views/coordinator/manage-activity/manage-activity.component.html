@@ -1,1 +1,131 @@
-<p>manage-activity works!</p>
+<section class="content">
+    <div class="container-fluid">
+        <button type="button" class="btn btn-primary mb-3 float-right text-uppercase" (click)="onAddActivity()"><i
+                class="fa fa-plus"></i>
+            Add Group Item
+        </button>
+        <br>
+        <br>
+        <br>
+
+
+        <accordion [closeOthers]="true" [isAnimated]="true">
+            <accordion-group *ngFor="let activity of activities" [heading]="activity.title">
+                <p>{{ activity?.content }}</p>
+                <button type="button" class="btn btn-primary btn-sm" accordion-heading>Update
+                    Activity
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" accordion-heading>Delete
+                    Activity
+                </button>
+            </accordion-group>
+        </accordion>
+
+    </div>
+</section>
+<!-- ADD MODAL START-->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title">New Activity</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <p class="list-group-item active text-center text-uppercase">{{modalMessage}}</p>
+        <form [formGroup]="insertForm" (submit)="onSubmit()">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="Title"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" id="Title" formControlName="Title" class="form-control" placeholder="Title"
+                            aria-label="Title" aria-describedby="Title">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="Description"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" formControlName="Description" class="form-control" placeholder="Description"
+                            aria-label="Description" aria-describedby="Description">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="DueDate"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="DueDate"
+                            class="form-control" placeholder="Due Date" aria-label="DueDate" aria-describedby="DueDate">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <button type="submit" [disabled]="insertForm.invalid" class="btn btn-primary btn-block">ADD</button>
+                </li>
+            </ul>
+
+        </form>
+
+    </div>
+</ng-template>
+<!-- ADD MODAL START-->
+<!-- Update MODAL START-->
+<ng-template #editTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title">Update Group</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <p class="list-group-item active text-center text-uppercase">{{modalMessage}}</p>
+        <form [formGroup]="updateForm" (submit)="onUpdate()">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="id"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="id" />
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="Title"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" id="Title" formControlName="Title" class="form-control" placeholder="Title"
+                            aria-label="Title" aria-describedby="Title">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="Description"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" formControlName="Description" class="form-control" placeholder="Description"
+                            aria-label="Description" aria-describedby="Description">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="DueDate"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="text" bsDatepicker formControlName="DueDate" class="form-control"
+                            placeholder="Due Date" aria-label="DueDate" aria-describedby="DueDate">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <button type="submit" [disabled]="updateForm.invalid"
+                        class="btn btn-primary btn-block">UPDATE</button>
+                </li>
+            </ul>
+
+        </form>
+
+    </div>
+</ng-template>

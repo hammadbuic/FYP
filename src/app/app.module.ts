@@ -25,6 +25,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AdminService } from './shared/admin.service';
 import { ProfileComponent } from './Views/Common/profile/profile.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
 
@@ -58,6 +59,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     DataTablesModule,
     SelectDropDownModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [UserService,{
     provide:HTTP_INTERCEPTORS,
