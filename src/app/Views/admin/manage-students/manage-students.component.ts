@@ -148,6 +148,7 @@ export class ManageStudentsComponent implements OnInit, OnDestroy {
       console.log("GIT REGISTRATION SUCCESSFULL");
       this.service.insertStudent(newStudent).subscribe(result=>{
         this.service.clearStudentCache();
+        this.students$=this.service.getStudents();
         this.students$.subscribe(newList=>{
           this.students=newList;
           this.modalRef.hide();
@@ -219,6 +220,7 @@ export class ManageStudentsComponent implements OnInit, OnDestroy {
   }
   //method to delete student
   onDeleteStudent(student:Student):void{
+    this.service.deleteGitUser(student.gitID).subscribe(result=>{console.log("User deleted on git");},error=>{console.log("Failed to delete user")})
     this.service.deleteStudent(student.id).subscribe(result=>{
       this.service.clearCache();
       this.students$=this.service.getStudents();

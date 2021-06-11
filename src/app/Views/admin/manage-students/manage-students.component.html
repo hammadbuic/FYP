@@ -1,6 +1,21 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Manage Students</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Manage Students</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
 <section class="content">
     <div class="container-fluid">
-        <button class="btn btn-warning mb-3 float-right text-uppercase" (click)="onAddStudent()" ><i class="fa fa-plus"></i> Add Supervisor</button>
+        <button class="btn btn-warning mb-3 float-right text-uppercase" (click)="onAddStudent()" ><i class="fa fa-plus"></i> Add Student</button>
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered row-border hover" style="width:100%">
           <thead class="text-center thead-dark">
             <tr>
@@ -60,10 +75,6 @@
                 </div>
                 <input type="text" id="fullName" formControlName="fullName" class="form-control" placeholder="fullName" aria-label="fullName" aria-describedby="fullName">
               </div>
-              <div class="errorMessage" *ngIf="fullName.touched && fullName.errors">
-                <span *ngIf="fullName.hasError('required')">Full Name is required.</span>
-                <span *ngIf="fullName.hasError('maxlength')">Only 20 characters allowed for Full Name.</span>
-              </div>
             </li>
             <li class="list-group-item">
               <div class="input-group">
@@ -71,10 +82,6 @@
                   <span class="input-group-text" id="UserName"><i class="fa fa-pencil-square-o"></i></span>
                 </div>
                 <input type="text" id="name" formControlName="UserName" class="form-control" placeholder="Username" aria-label="name" aria-describedby="UserName">
-              </div>
-              <div class="errorMessage" *ngIf="UserName.touched && UserName.errors">
-                <span *ngIf="UserName.hasError('required')">User Name is required.</span>
-                <span *ngIf="UserName.hasError('maxlength')">Only 20 characters allowed for User Name.</span>
               </div>
             </li>
             <li class="list-group-item">
@@ -84,10 +91,6 @@
                 </div>
                 <input type="text" formControlName="Email" class="form-control" placeholder="Enter a valid Email" aria-label="Email" aria-describedby="Email">
               </div>
-              <div class="errorMessage" *ngIf="Email.touched && Email.errors">
-                <span *ngIf="Email.hasError('required')">Email is required.</span>
-                <span *ngIf="Email.hasError('maxlength')">Only 50 characters allowed for Email.</span>
-              </div>
             </li>
             <li class="list-group-item">
                 <div class="input-group">
@@ -95,10 +98,6 @@
                     <span class="input-group-text" id="PhoneNumber"><i class="fa fa-pencil-square-o"></i></span>
                   </div>
                   <input type="text" formControlName="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" aria-label="PhoneNumber" aria-describedby="PhoneNumber">
-                </div>
-                <div class="errorMessage" *ngIf="PhoneNumber.touched && PhoneNumber.errors">
-                  <span *ngIf="PhoneNumber.hasError('required')">PhoneNumber is required.</span>
-                  <span *ngIf="PhoneNumber.hasError('maxlength')">Only 11 characters allowed for PhoneNumber.</span>
                 </div>
               </li>
               <li class="list-group-item">
@@ -108,10 +107,6 @@
                   </div>
                   <input type="text" formControlName="RegistrationNumber" class="form-control" placeholder="Enter Registration Number" aria-label="RegistrationNumber" aria-describedby="RegistrationNumber">
                 </div>
-                <div class="errorMessage" *ngIf="RegistrationNumber.touched && RegistrationNumber.errors">
-                  <span *ngIf="RegistrationNumber.hasError('required')">Registration Number is required.</span>
-                  <span *ngIf="RegistrationNumber.hasError('maxlength')">Only 20 characters allowed for Registration Number.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -119,10 +114,6 @@
                     <span class="input-group-text" id="FatherName"><i class="fa fa-pencil-square-o"></i></span>
                   </div>
                   <input type="text" formControlName="FatherName" class="form-control" placeholder="Enter Father Name" aria-label="FatherName" aria-describedby="FatherName">
-                </div>
-                <div class="errorMessage" *ngIf="FatherName.touched && FatherName.errors">
-                  <span *ngIf="FatherName.hasError('required')">Father Name is required.</span>
-                  <span *ngIf="FatherName.hasError('maxlength')">Only 20 characters allowed for Father Name.</span>
                 </div>
               </li>
               <li class="list-group-item">
@@ -132,10 +123,6 @@
                   </div>
                   <input type="text" formControlName="Address" class="form-control" placeholder="Enter Address" aria-label="Address" aria-describedby="Address">
                 </div>
-                <div class="errorMessage" *ngIf="Address.touched && Address.errors">
-                  <span *ngIf="Address.hasError('required')">Address is required.</span>
-                  <span *ngIf="Address.hasError('maxlength')">Only 20 characters allowed for Address.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -144,10 +131,6 @@
                   </div>
                   <input type="text" formControlName="Program" class="form-control" placeholder="Enter Program" aria-label="Program" aria-describedby="Program">
                 </div>
-                <div class="errorMessage" *ngIf="Program.touched && Program.errors">
-                  <span *ngIf="Program.hasError('required')">Program is required.</span>
-                  <span *ngIf="Program.hasError('maxlength')">Only 3 characters allowed for Program.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -155,10 +138,6 @@
                     <span class="input-group-text" id="Department"><i class="fa fa-pencil-square-o"></i></span>
                   </div>
                   <input type="text" formControlName="Department" class="form-control" placeholder="Enter Department" aria-label="Department" aria-describedby="Department">
-                </div>
-                <div class="errorMessage" *ngIf="Department.touched && Department.errors">
-                  <span *ngIf="Department.hasError('required')">Department is required.</span>
-                  <span *ngIf="Department.hasError('maxlength')">Only 11 characters allowed for Department.</span>
                 </div>
               </li>
             <li class="list-group-item">
@@ -198,10 +177,6 @@
                 </div>
                 <input type="text" id="fullName" formControlName="fullName" class="form-control" placeholder="fullName" aria-label="fullName" aria-describedby="fullName">
               </div>
-              <div class="errorMessage" *ngIf="fullName.touched && fullName.errors">
-                <span *ngIf="fullName.hasError('required')">Full Name is required.</span>
-                <span *ngIf="fullName.hasError('maxlength')">Only 20 characters allowed for Full Name.</span>
-              </div>
             </li>
             <li class="list-group-item">
               <div class="input-group">
@@ -209,10 +184,6 @@
                   <span class="input-group-text" id="UserName"><i class="fa fa-pencil-square-o"></i></span>
                 </div>
                 <input type="text" id="_name" formControlName="UserName" class="form-control" placeholder="Username" aria-label="name" aria-describedby="UserName">
-              </div>
-              <div class="errorMessage" *ngIf="UserName.touched && UserName.errors">
-                <span *ngIf="UserName.hasError('required')">User Name is required.</span>
-                <span *ngIf="UserName.hasError('maxlength')">Only 20 characters allowed for User Name.</span>
               </div>
             </li>
             <li class="list-group-item">
@@ -234,10 +205,6 @@
                   </div>
                   <input type="text" formControlName="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" aria-label="PhoneNumber" aria-describedby="PhoneNumber">
                 </div>
-                <div class="errorMessage" *ngIf="PhoneNumber.touched && PhoneNumber.errors">
-                  <span *ngIf="PhoneNumber.hasError('required')">PhoneNumber is required.</span>
-                  <span *ngIf="PhoneNumber.hasError('maxlength')">Only 11 characters allowed for PhoneNumber.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -258,10 +225,6 @@
                   </div>
                   <input type="text" formControlName="FatherName" class="form-control" placeholder="Enter Father Name" aria-label="FatherName" aria-describedby="FatherName">
                 </div>
-                <div class="errorMessage" *ngIf="FatherName.touched && FatherName.errors">
-                  <span *ngIf="FatherName.hasError('required')">Father Name is required.</span>
-                  <span *ngIf="FatherName.hasError('maxlength')">Only 20 characters allowed for Father Name.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -269,10 +232,6 @@
                     <span class="input-group-text" id="Address"><i class="fa fa-pencil-square-o"></i></span>
                   </div>
                   <input type="text" formControlName="Address" class="form-control" placeholder="Enter Address" aria-label="Address" aria-describedby="Address">
-                </div>
-                <div class="errorMessage" *ngIf="Address.touched && Address.errors">
-                  <span *ngIf="Address.hasError('required')">Address is required.</span>
-                  <span *ngIf="Address.hasError('maxlength')">Only 20 characters allowed for Address.</span>
                 </div>
               </li>
               <li class="list-group-item">
@@ -282,10 +241,6 @@
                   </div>
                   <input type="text" formControlName="Program" class="form-control" placeholder="Enter Program" aria-label="Program" aria-describedby="Program">
                 </div>
-                <div class="errorMessage" *ngIf="Program.touched && Program.errors">
-                  <span *ngIf="_Program.hasError('required')">Program is required.</span>
-                  <span *ngIf="_Program.hasError('maxlength')">Only 3 characters allowed for Program.</span>
-                </div>
               </li>
               <li class="list-group-item">
                 <div class="input-group">
@@ -293,10 +248,6 @@
                     <span class="input-group-text" id="Department"><i class="fa fa-pencil-square-o"></i></span>
                   </div>
                   <input type="text" formControlName="Department" class="form-control" placeholder="Enter Department" aria-label="Department" aria-describedby="Department">
-                </div>
-                <div class="errorMessage" *ngIf="Department.touched && Department.errors">
-                  <span *ngIf="Department.hasError('required')">Department is required.</span>
-                  <span *ngIf="Department.hasError('maxlength')">Only 11 characters allowed for Department.</span>
                 </div>
               </li>
             <li class="list-group-item">

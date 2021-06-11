@@ -7,7 +7,7 @@ import { SupervisorComponent } from './supervisor.component';
 import { ViewGroupComponent } from './view-group/view-group.component';
 
 const routes: Routes = [
-  { path: '', component: SupervisorComponent },
+  { path: 'root', component: SupervisorComponent },
   { path: 'goto-gitlab', component: GotoGitlabComponent },
   { path: 'see-docs', component: SeeDocsComponent },
   { path: 'view-group', component: ViewGroupComponent }

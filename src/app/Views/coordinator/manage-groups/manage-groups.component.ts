@@ -167,6 +167,7 @@ dtTrigger:Subject<any>=new Subject();
         this.groupService.addStudentsToGroup(studentsToAssign).subscribe(
           result=>{
             this.groupService.clearCache();
+            this.groups$=this.groupService.getGroups();
             this.groups$.subscribe(
               newList=>{
                 this.groups=newList;

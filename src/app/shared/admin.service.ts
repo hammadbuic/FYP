@@ -21,7 +21,10 @@ export class AdminService {
   private supervisorDeleteURL: string = "/admin/deleteSupervisor/";
   private studentDeleteURL:string="/admin/deletestudent/";
   private assignCoordinatorURL:string="/admin/makeCoordinator/";
+  private createGroupURL:string="/groups";
   private gitUserCreationURL:string="/users";
+  private createRepoCoordinatorURL="/projects/";
+  private deleteGitUserURL="/users/"
   private supervisors$: Observable<Supervisor[]>;
   private students$:Observable<Student[]>;
   //GEt all the supervisor
@@ -50,8 +53,16 @@ export class AdminService {
     return this.http.delete(this.BaseURL+this.supervisorDeleteURL+id);
   }
   //assign coordinator role to a supervisor
-  assignCoordinator(coordinator:Coordinator):Observable<Coordinator>{
-    return this.http.post<Coordinator>(this.BaseURL+this.assignCoordinatorURL,coordinator);
+  assignCoordinator(coordinator:any):Observable<any>{
+    return this.http.post<any>(this.BaseURL+this.assignCoordinatorURL,coordinator);
+  }
+  //create group with section name from coordinator
+  createGitGroup(group:any):Observable<any>{
+    return this.http.post<any>('@api-x/'+this.GitURL+this.createGroupURL,group);
+  }
+  //create repository for coordinator
+  createReposCordinator(repo:any):Observable<any>{
+    return this.http.post<any>('@api-x/'+this.GitURL+this.createRepoCoordinatorURL,repo);
   }
   //creating gitlab account
   createGitSupervisor(supervisor:any):Observable<any>{
@@ -91,6 +102,10 @@ export class AdminService {
     //   'Authorization':'493rDyBuzt4iVLAYpfbH'
     // });
     return this.http.post<any>('@api-x/'+this.GitURL+this.gitUserCreationURL,student);
+  }
+  //delete git supervisor
+  deleteGitUser(id:Number):Observable<any>{
+    return this.http.delete('@api-x/'+this.GitURL+this.deleteGitUserURL+id);
   }
   //clear student cache
   clearStudentCache(){

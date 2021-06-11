@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
+import { Coordinator } from 'src/app/interfaces/coordinator';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
 @Component({
@@ -141,27 +142,56 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   }
   //method for assigning the coordinator
   onAssignCoordinator(){
+    //group to send to git
+    let group:any={};
     let newCoordinator=this.coordForm.value;
-    console.log(newCoordinator)
-    this.service.assignCoordinator(newCoordinator).subscribe(
-      result=>{
-        console.log("COORDINATOR ADDED");
-        this.toastr.success("Coordinator is assigned to "+ newCoordinator.section);
-        this.service.clearCache();
-        this.supervisors$=this.service.getSupervisors();
-        this.supervisors$.subscribe(
-          updatedList=>{
-            this.supervisors=updatedList;
-            this.modalRef.hide();
-            this.rerender();
+    group.name=newCoordinator.section;
+    group.path=newCoordinator.section;
+    group.description="The Group is for "+newCoordinator.section+" Students";
+    this.service.createGitGroup(group).subscribe(result=>{
+      newCoordinator.gitID=result.id;
+      newCoordinator.web_url=result.web_url;
+      newCoordinator.groupName=result.name;
+      newCoordinator.groupPath=result.path;
+      newCoordinator.description=result.description;
+      newCoordinator.created_at=result.created_at;
+      let repos:any={};
+      //passing id of coordinator profile
+      repos.name=newCoordinator.section+"_Documents";
+      //make repository for making docs
+      this.service.createReposCordinator(repos).subscribe(result=>{
+        console.log("Git Repos created for docs upload!");
+        newCoordinator.reposId=result.id;
+        newCoordinator.reposName=result.name;
+        newCoordinator.reposUrl=result.web_url;
+        this.service.assignCoordinator(newCoordinator).subscribe(
+          result=>{
+            console.log("COORDINATOR ADDED");
+            console.log(newCoordinator);
+            this.toastr.success("Coordinator is assigned to "+ newCoordinator.section);
+            this.service.clearCache();
+            this.supervisors$=this.service.getSupervisors();
+            this.supervisors$.subscribe(
+              updatedList=>{
+                this.supervisors=updatedList;
+                this.modalRef.hide();
+                this.rerender();
+              }
+            );
+          },
+          error=>{
+            console.log("Unable to Assign Coordinator");
+            this.toastr.error("Operation Unsuccessfull");
           }
-        )
+        );
       },
       error=>{
-        console.log("Unable to Assign Coordinator");
-        this.toastr.error("Operation Unsuccessfull");
-      }
-    )
+        console.log("Error! Failed to create the docs repos");
+      });
+    },
+    error=>{
+      this.toastr.error("Unable to create Group at Gitlab");
+    });
   }
   //Custom method to detect changes
   //destroy old table and load with the change
@@ -198,13 +228,16 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
         this.service.insertSupervisor(newSupervisor).subscribe(
           result=>{
             this.service.clearCache();
+            this.supervisors$=this.service.getSupervisors();
             this.supervisors$.subscribe(newList=>{
               this.supervisors=newList;
               this.modalRef.hide();
+              this.rerender();
               this.insertForm.reset();
+
               //this.dtTrigger.next();
             });
-            this.rerender();
+
             console.log("New Supervisor is added");
             this.toastr.success("Supervisor added successfully");
           },
@@ -266,6 +299,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   }
   //method to delete supervisor
   onDeleteSupervisor(supervisor:Supervisor):void{
+    this.service.deleteGitUser(supervisor.gitID).subscribe(result=>{console.log("User deleted on git");},error=>{console.log("Failed to delete user")})
     this.service.deleteSupervisor(supervisor.id).subscribe(result=>{
       this.service.clearCache();
       this.supervisors$=this.service.getSupervisors();
@@ -281,6 +315,9 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
       console.log("UNABLE TO DELETE SUPERVISOR");
       this.toastr.error("Operation Failed");
     })
+  }
+  onClick(){
+    this.route.navigateByUrl('home/admin/root');
   }
   ngOnDestroy():void {
     this.service.clearCache();

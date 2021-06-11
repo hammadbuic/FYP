@@ -11,7 +11,7 @@ import { ViewGroupComponent } from './view-group/view-group.component';
 import { ViewProgressComponent } from './view-progress/view-progress.component';
 
 const routes: Routes = [
-  { path: '', component: CoordinatorComponent },
+  { path: 'root', component: CoordinatorComponent },
   { path: 'maintain-newsfeed', component: MaintainNewsfeedComponent },
   { path: 'manage-activity', component: ManageActivityComponent },
   { path: 'manage-groups', component: ManageGroupsComponent },

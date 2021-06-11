@@ -8,7 +8,7 @@ import { ViewNewsfeedComponent } from './view-newsfeed/view-newsfeed.component';
 import { ViewProjectActivityComponent } from './view-project-activity/view-project-activity.component';
 
 const routes: Routes = [
-  { path: '', component: StudentComponent },
+  { path: 'root', component: StudentComponent },
   { path: 'goto-git', component: GotoGitComponent },
   { path: 'submit-docs', component: SubmitDocsComponent },
   { path: 'view-newsfeed', component: ViewNewsfeedComponent },

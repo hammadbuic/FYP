@@ -9,11 +9,11 @@ import { ManageStudentsComponent } from './manage-students/manage-students.compo
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 const routes: Routes = [
-  //{ path: '', component: DashboardComponent },
+  {path:"root",component:AdminComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'manage-students', component: ManageStudentsComponent },
   { path: 'manage-users', component: ManageUsersComponent,canActivate:[AuthGuard],data:{permittedRoles:['Admin']} },
-  {path:":id",component:ProfileComponent}
+  {path:":id",component:ProfileComponent},
 ];
 
 @NgModule({

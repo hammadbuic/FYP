@@ -1,4 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-home',
@@ -6,23 +8,34 @@ import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public sidebarMenuOpened = true;
+  public sidebarMenuOpened = false;
   @ViewChild('contentWrapper', { static: false }) contentWrapper;
 
-  constructor(private renderer: Renderer2) { }
-
+  constructor(private renderer: Renderer2,private router:Router,private service:UserService) { }
   ngOnInit(): void {
     this.renderer.removeClass(document.querySelector('app-root'), 'login-page');
     this.renderer.removeClass(
       document.querySelector('app-root'),
       'register-page'
     );
+    if(this.service.roleMatch(['Admin'])){
+      this.router.navigateByUrl('home/admin/root');
+    }
+    if(this.service.roleMatch(['Coordinator'])){
+      this.router.navigateByUrl('home/coordinator/root');
+    }
+    if(this.service.roleMatch(['Supervisor'])){
+      this.router.navigateByUrl('home/supervisor/root')
+    }
+    if(this.service.roleMatch(['Student'])){
+      this.router.navigateByUrl('home/student/root');
+    }
   }
   mainSidebarHeight(height) {
      this.renderer.setStyle(
        this.contentWrapper.nativeElement,
        'min-height',
-       height - 114 + 'px'
+       height -20 + 'px'
      );
   }
   toggleMenuSidebar() {
