@@ -19,6 +19,8 @@ export class GroupService {
   private groupDeleteURL='/groups/';
   private getStudentsByGroupURL='/groups/getStudentsByGroup/';
   private updateStudentsByGroupURL='/groups/updateStudentsByGroupId/';
+  private getCoordinatorURL='/coordinator/GetCoordinator/';
+  private gitProjectCreationURL='/projects/';
   private groups$:Observable<Group[]>;
   getGroups():Observable<Group[]>{
     if(!this.groups$)
@@ -47,6 +49,14 @@ export class GroupService {
   }
   deleteGroup(groupId:Number):Observable<any>{
     return this.http.delete(this.BaseURL+this.groupDeleteURL+groupId);
+  }
+  //For creating a project inside group
+  createGitProject(project:any):Observable<any>{
+    return this.http.post<any>('@api-x/'+this.GitURL+this.gitProjectCreationURL,project);
+  }
+  //getting coordinator details from coordinator table
+  getCoordinator():Observable<any>{
+    return this.http.get<any>(this.BaseURL+this.getCoordinatorURL);
   }
   clearCache(){
     this.groups$=null;

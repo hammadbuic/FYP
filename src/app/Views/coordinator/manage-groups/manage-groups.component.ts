@@ -21,6 +21,7 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class ManageGroupsComponent implements OnInit,OnDestroy {
   groups$:Observable<Group[]>;
+  coordinatorDetails:any={};
   selectedGroup:Group;
   groups:Group[]=[];
   //Example Start
@@ -133,9 +134,10 @@ dtTrigger:Subject<any>=new Subject();
         this.service.getSupervisors().subscribe(result=>{
           this.supervisorOptions=result;
         })
-        this.userService.getUserProfile().subscribe(result=>{
-          console.log(result);
-        })
+        // this.userService.getUserProfile().subscribe(result=>{
+        //   console.log(result);
+        // })
+        this.groupService.getCoordinator().subscribe(result=>{this.coordinatorDetails=result});
   }
   //loading add group modal
   onAddGroup(){
@@ -144,60 +146,59 @@ dtTrigger:Subject<any>=new Subject();
   onSubmit()
   {
     var studentsToAssign:StudentGroup[]=[];
+    let studentsToAssignOnGit:any[]=[];
     let newGroup:any={};
+    //calling api on the level of data provided
     let group=this.insertForm.value;//seprating values from insert form
     newGroup.groupName=group.GroupName;
     newGroup.supervisorId=group.Supervisor.id;
     newGroup.projectName=group.ProjectName;
     newGroup.projectDescription=group.ProjectDescription;
     var student=group.SelectedStudents;
-
-
-
+    //creating project as data for group and project is provided on this level and will save response from git api
+    let gitProjectCreationData:any={};
+    gitProjectCreationData.name=newGroup.projectName;
+    gitProjectCreationData.description=newGroup.projectDescription;
+    gitProjectCreationData.namespace_id=this.coordinatorDetails.gitId;
+    console.log(gitProjectCreationData);//logging
+    this.groupService.createGitProject(gitProjectCreationData).subscribe(result=>{
+      newGroup.gitProjectId=result.id;
+      newGroup.created_at=result.created_at;
+      newGroup.http_url_to_repo=result.http_url_to_repo;
+      this.groupService.addGroup(newGroup).subscribe(
+        result=>{
+          student.forEach(element => {
+            let studentToAssign:any={};
+            studentToAssign.id=element.id;
+            studentToAssign.groupId=result.groupId;
+            studentsToAssign.push(studentToAssign);
+          });
+          student.forEach(element => {
+            let studentToAssignOnGit:any={};
+            studentToAssignOnGit.user_id=element.gitID;
+            studentToAssignOnGit.access_level=30;
+          });
+          console.log(studentsToAssign);
+          console.log(studentsToAssignOnGit);
+          this.groupService.addStudentsToGroup(studentsToAssign).subscribe(
+            result=>{
+              this.groupService.clearCache();
+              this.groups$=this.groupService.getGroups();
+              this.groups$.subscribe(
+                newList=>{
+                  this.groups=newList;
+                  this.modalRef.hide();
+                  this.insertForm.reset();
+                });
+              this.rerender();
+              console.log("Students are added successfully");
+            },error=>{console.log("Unable to add students")});
+          this.toastr.success("Group Created Successfully");
+        },
+        error=>{
+          this.toastr.error("Group Creation Unsuccessfull");});
+    },error=>{console.log("UNABLE TO CREATE GIT PROJECT");});
     //console.log(student);
-    this.groupService.addGroup(newGroup).subscribe(
-      result=>{
-        student.forEach(element => {
-          let studentToAssign:any={};
-          studentToAssign.id=element.id;
-          studentToAssign.groupId=result.groupId;
-          studentsToAssign.push(studentToAssign);
-        });
-        console.log(studentsToAssign);
-        this.groupService.addStudentsToGroup(studentsToAssign).subscribe(
-          result=>{
-            this.groupService.clearCache();
-            this.groups$=this.groupService.getGroups();
-            this.groups$.subscribe(
-              newList=>{
-                this.groups=newList;
-                this.modalRef.hide();
-                this.insertForm.reset();
-              }
-            );
-            this.rerender();
-            this.toastr.success("Students are added successfully");
-          },
-          error=>{
-            this.toastr.error("Unable to add students");
-          }
-        )
-        this.groupService.clearCache();
-        this.groups$=this.groupService.getGroups();
-        this.groups$.subscribe(
-          result=>{
-            this.groups=result;
-            this.modalRef.hide();
-            this.insertForm.reset();
-          }
-        );
-        this.rerender();
-        this.toastr.success("Group Created Successfully");
-      },
-      error=>{
-        this.toastr.error("Group Creation Unsuccessfull");
-      }
-    )
   }
   rerender(){
     this.dtElement.dtInstance.then((dtInstance:DataTables.Api)=>{

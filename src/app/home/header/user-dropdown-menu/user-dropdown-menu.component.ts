@@ -27,7 +27,6 @@ export class UserDropdownMenuComponent implements OnInit {
     this.userDetails$=this.services.getUserProfile();
     this.userDetails$.subscribe(result=>{
     this.userDetails=result;
-    console.log(result);
     })
     //this.services.getUserProfile().subscribe(
       //res =>{this.userDetails=res;

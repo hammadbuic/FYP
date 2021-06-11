@@ -21,7 +21,7 @@ export class AdminService {
   private supervisorDeleteURL: string = "/admin/deleteSupervisor/";
   private studentDeleteURL:string="/admin/deletestudent/";
   private assignCoordinatorURL:string="/admin/makeCoordinator/";
-  private createGroupURL:string="/groups";
+  private createGitGroupURL:string="/groups";
   private gitUserCreationURL:string="/users";
   private createRepoCoordinatorURL="/projects/";
   private deleteGitUserURL="/users/"
@@ -58,7 +58,7 @@ export class AdminService {
   }
   //create group with section name from coordinator
   createGitGroup(group:any):Observable<any>{
-    return this.http.post<any>('@api-x/'+this.GitURL+this.createGroupURL,group);
+    return this.http.post<any>('@api-x/'+this.GitURL+this.createGitGroupURL,group);
   }
   //create repository for coordinator
   createReposCordinator(repo:any):Observable<any>{
