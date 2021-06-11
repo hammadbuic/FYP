@@ -147,9 +147,14 @@ dtTrigger:Subject<any>=new Subject();
   {
     var studentsToAssign:StudentGroup[]=[];
     let studentsToAssignOnGit:any[]=[];
+    let supervisorToAssignOnGit:any={};
     let newGroup:any={};
     //calling api on the level of data provided
     let group=this.insertForm.value;//seprating values from insert form
+    //seprating supervisor data from group form
+    supervisorToAssignOnGit.user_id=group.Supervisor.gitID;
+    supervisorToAssignOnGit.access_level=20;
+    //seprating student data from group form
     newGroup.groupName=group.GroupName;
     newGroup.supervisorId=group.Supervisor.id;
     newGroup.projectName=group.ProjectName;
@@ -159,7 +164,7 @@ dtTrigger:Subject<any>=new Subject();
     let gitProjectCreationData:any={};
     gitProjectCreationData.name=newGroup.projectName;
     gitProjectCreationData.description=newGroup.projectDescription;
-    gitProjectCreationData.namespace_id=this.coordinatorDetails.gitId;
+    gitProjectCreationData.namespace_id=this.coordinatorDetails.gitId; //gitId from coordinator table is the namespace id saved when coordinator group was created in admin panel
     console.log(gitProjectCreationData);//logging
     this.groupService.createGitProject(gitProjectCreationData).subscribe(result=>{
       newGroup.gitProjectId=result.id;
@@ -177,9 +182,16 @@ dtTrigger:Subject<any>=new Subject();
             let studentToAssignOnGit:any={};
             studentToAssignOnGit.user_id=element.gitID;
             studentToAssignOnGit.access_level=30;
+            studentsToAssignOnGit.push(studentToAssignOnGit);
           });
           console.log(studentsToAssign);
           console.log(studentsToAssignOnGit);
+          console.log(supervisorToAssignOnGit);
+          //Assigning students to git repository created
+          studentsToAssignOnGit.forEach(element => {
+            this.groupService.assignMembersOnGitRepo(newGroup.gitProjectId,element).subscribe(result=>{console.log("STUDENTS ASSIGNED TO "+newGroup.gitProjectId+" SUCCESS")},error=>{console.log("FAILED TO ASSIGN STUDENTS")})
+          });
+          this.groupService.assignMembersOnGitRepo(newGroup.gitProjectId,supervisorToAssignOnGit).subscribe(result=>{console.log("SUCCSS! ASSIGNED SUPERVISOR AGAINST GIT REPO WITH ID: "+newGroup.gitProjectId)},error=>{console.log("FAILED TO ASSIGN SUPERVISOR ON GIT REPO WITH ID: "+newGroup.gitProjectId)})
           this.groupService.addStudentsToGroup(studentsToAssign).subscribe(
             result=>{
               this.groupService.clearCache();
@@ -275,7 +287,9 @@ dtTrigger:Subject<any>=new Subject();
       }
     )
   }
-  onDelete(group:Group):void{
+  onDelete(group:any):void{
+    console.log(group.gitProjectId);
+    this.groupService.deleteGitProject(group.gitProjectId).subscribe(result=>{if(result.message=="202 Accepted"){console.log("PROJECT WITH ID: "+group.gitProjectId+" IS DELETED FROM GITLAB")}},error=>{console.log("FAILED TO DELETE PROJECT WITH ID: "+group.gitProjectId)});
     this.groupService.deleteGroup(group.groupId).subscribe(result=>{
       this.groupService.clearCache();
       this.groups$=this.groupService.getGroups();
