@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Supervisor } from 'src/app/interfaces/supervisor';
+import { SupervisorService } from 'src/app/shared/supervisor.service';
 
 @Component({
   selector: 'app-goto-gitlab',
   templateUrl: './goto-gitlab.component.html',
-  styleUrls: ['./goto-gitlab.component.css']
+  styleUrls: ['./goto-gitlab.component.scss']
 })
 export class GotoGitlabComponent implements OnInit {
-
-  constructor() { }
+  supervisorDetails$:Promise<Supervisor>;
+  constructor(private supervisorService:SupervisorService,private route:Router) { }
 
   ngOnInit(): void {
+    this.supervisorDetails$=this.supervisorService.supervisorSpec;
+    this.supervisorDetails$.then(result=>{
+    window.location.href =  result.webURL;
+    this.route.navigateByUrl('/home/supervisor/root');
+    });
   }
 
 }

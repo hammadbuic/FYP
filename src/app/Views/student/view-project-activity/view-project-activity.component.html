@@ -1,1 +1,32 @@
-<p>view-project-activity works!</p>
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Project Activities</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="home/student/root" (click)=onClick()>Home</a></li>
+            <li class="breadcrumb-item active">Project Activities</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+</section>
+    <!-- /.container-fluid -->
+<section class="content">
+    <div class="container-fluid">
+        <accordion [closeOthers]="true" [isAnimated]="true" *ngIf="studentDetails!=null">
+            <accordion-group *ngFor="let activity of activities" [heading]="activity.title">
+                <div class="timeline-body">
+                    {{ activity?.description }}
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-success" (click)=onDownload(activity)>Download Attachment</a>
+                    <a class="btn btn-success" *ngIf="studentDetails.groupId!=null">Submit File</a>
+                </div>
+            </accordion-group>
+        </accordion>
+
+    </div>
+</section>

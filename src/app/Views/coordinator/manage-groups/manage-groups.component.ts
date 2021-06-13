@@ -306,6 +306,9 @@ dtTrigger:Subject<any>=new Subject();
   reset() {//Example
     this.resetOption = [];
   }
+  onClick(){
+    this.route.navigateByUrl('home/coordinator/root');
+  }
   ngOnDestroy(){
     this.groupService.clearCache();
     this.service.clearCache();

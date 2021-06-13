@@ -1,1 +1,52 @@
-<p>student works!</p>
+<body>
+    <li class="icon fas fa-tv mr-2 fa-3x "> Dashboard
+    </li>
+
+    <div class=" main-content">
+        <ul>
+            Git is a distributed version control system, which means you can work locally, then share or “push” your
+            changes
+            to a server. In this case, the server is GitLab.
+
+            GitLab uses the SSH protocol to securely communicate with Git. When you use SSH keys to authenticate to the
+            GitLab remote server, you don’t need to supply your username and password each time.
+            <br><br>
+            <b>Prerequisites</b><br>
+            You must have Git installed on your system.<br>
+            Now follow these steps to setup for gitlab
+            <ol>
+                <li>
+                    Open a terminal or command prompt.</li>
+                <li>Type "ssh-keygen -t" followed by the key type and an optional comment. This comment is included in
+                    the
+                    .pub file that’s created. You may want to use an email address for the comment.</li>
+                For example, for ED25519:
+                <ul>
+                    <li>ssh-keygen -t ed25519 -C "comment"</li>
+
+                </ul>
+                For 2048-bit RSA:
+                <ul>
+                    <li>ssh-keygen -t rsa -b 2048 -C "comment"</li>
+                </ul>
+                <li>Press Enter. Output similar to the following is displayed:</li>
+                Generating public/private ed25519 key pair.<br>
+                Enter file in which to save the key (/home/user/.ssh/id_ed25519):
+                <li>Accept the suggested filename and directory, unless you are generating a<a
+                        href="https://docs.gitlab.com/ee/user/project/deploy_keys/index.html"> deploy key</a> or want to
+                    save in a specific directory where you store other keys.</li>
+                You can also dedicate the SSH key pair to a<a
+                    href="https://docs.gitlab.com/ee/ssh/README.html#configure-ssh-to-point-to-a-different-directory">
+                    specific host</a>.<br>
+                <li>Specify a <a href="https: //www.ssh.com/academy/ssh/passphrase">passphrase</a>:</li>
+                Enter passphrase (empty for no passphrase):<br>
+                Enter same passphrase again:
+                <li>A confirmation is displayed, including information about where your files are stored.</li>
+                A public and private key are generated.<a
+                    href="https://docs.gitlab.com/ee/ssh/README.html#add-an-ssh-key-to-your-gitlab-account"> Add the
+                    public SSH key to your GitLab account</a> and keep the private key secure.
+            </ol>
+        </ul>
+
+    </div>
+</body>

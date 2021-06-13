@@ -1,8 +1,24 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Manage Supervisors</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="home/coordinator/root" (click)=onClick()>Home</a></li>
+            <li class="breadcrumb-item active">Manage Activities</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+</section>
+    <!-- /.container-fluid -->
 <section class="content">
     <div class="container-fluid">
         <button type="button" class="btn btn-primary mb-3 float-right text-uppercase" (click)="onAddActivity()"><i
                 class="fa fa-plus"></i>
-            Add Group Item
+            Add Activity
         </button>
         <br>
         <br>
@@ -11,13 +27,14 @@
 
         <accordion [closeOthers]="true" [isAnimated]="true">
             <accordion-group *ngFor="let activity of activities" [heading]="activity.title">
-                <p>{{ activity?.content }}</p>
-                <button type="button" class="btn btn-primary btn-sm" accordion-heading>Update
-                    Activity
-                </button>
-                <button type="button" class="btn btn-primary btn-sm" accordion-heading>Delete
-                    Activity
-                </button>
+                <div class="timeline-body">
+                    {{ activity?.description }}
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-success" (click)=onDownload(activity)>Download</a>
+                    <a class="btn btn-primary">Update</a>
+                    <a class="btn btn-danger">Delete</a>
+                </div>
             </accordion-group>
         </accordion>
 
@@ -60,6 +77,14 @@
                         </div>
                         <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="DueDate"
                             class="form-control" placeholder="Due Date" aria-label="DueDate" aria-describedby="DueDate">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="File"><i class="fa fa-pencil-square-o"></i></span>
+                        </div>
+                        <input type="file" name="File" class="form-control" id="File" (change)="fileChange($event.target.files)">
                     </div>
                 </li>
                 <li class="list-group-item">

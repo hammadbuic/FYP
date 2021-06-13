@@ -27,6 +27,7 @@
     "bootstrap-icons": "^1.4.1",
     "datatables.net": "^1.10.24",
     "datatables.net-dt": "^1.10.24",
+    "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-select-dropdown": "^2.1.0",

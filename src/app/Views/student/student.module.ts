@@ -7,13 +7,15 @@ import { ViewProjectActivityComponent } from './view-project-activity/view-proje
 import { ViewNewsfeedComponent } from './view-newsfeed/view-newsfeed.component';
 import { SubmitDocsComponent } from './submit-docs/submit-docs.component';
 import { GotoGitComponent } from './goto-git/goto-git.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 @NgModule({
   declarations: [StudentComponent, ViewProjectActivityComponent, ViewNewsfeedComponent, SubmitDocsComponent, GotoGitComponent],
   imports: [
     CommonModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    AccordionModule,
   ]
 })
 export class StudentModule { }

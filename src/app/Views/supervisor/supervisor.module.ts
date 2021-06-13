@@ -6,13 +6,15 @@ import { SupervisorComponent } from './supervisor.component';
 import { ViewGroupComponent } from './view-group/view-group.component';
 import { SeeDocsComponent } from './see-docs/see-docs.component';
 import { GotoGitlabComponent } from './goto-gitlab/goto-gitlab.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 @NgModule({
   declarations: [SupervisorComponent, ViewGroupComponent, SeeDocsComponent, GotoGitlabComponent],
   imports: [
     CommonModule,
-    SupervisorRoutingModule
+    SupervisorRoutingModule,
+    AccordionModule,
   ]
 })
 export class SupervisorModule { }

@@ -1,7 +1,22 @@
 .main-sidebar {
-    height: 100vh;
-    overflow: scroll;
-  }
+  height: 100vh;
+  overflow: scroll;
+  background-color: #1b3240;
+  position: fixed;
+
+}
+.brand-link{
+  background-color: #1b3240;
+  color: white;
+}
+
 .fa-2x{
 font-size:1.25em!important;
+}
+.nav-link{
+color: white;
+position: fixed;
+}
+.sidebar{
+position: fixed;
 }
