@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
         }
       )
     }
-
   }
-
+  onClick(){
+    this.router.navigateByUrl("/home/admin/root");
+  }
 }
