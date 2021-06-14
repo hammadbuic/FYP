@@ -31,6 +31,7 @@
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-select-dropdown": "^2.1.0",
+    "ngx-spinner": "^10.0.1",
     "ngx-toastr": "^13.2.1",
     "popper.js": "^1.16.1",
     "rxjs": "^6.6.7",

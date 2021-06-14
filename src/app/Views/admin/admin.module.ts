@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { ManageStudentsComponent } from './manage-students/manage-students.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -27,7 +27,9 @@ import { ManageStudentsComponent } from './manage-students/manage-students.compo
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
+    NgxSpinnerModule,
     ModalModule,ToastrModule.forRoot()
+
   ]
 })
 export class AdminModule { }

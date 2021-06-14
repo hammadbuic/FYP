@@ -16,6 +16,7 @@ import { GotoGitlabComponent } from './goto-gitlab/goto-gitlab.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [CoordinatorComponent, ManageGroupsComponent, ManageActivityComponent, MaintainNewsfeedComponent, ViewProgressComponent, ViewGroupComponent, SeeDocsComponent, GotoGitlabComponent],
   imports: [
@@ -26,6 +27,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     DataTablesModule,
     SelectDropDownModule,
     AccordionModule,
+    NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     ModalModule,ToastrModule.forRoot()
   ]

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { GroupService } from 'src/app/shared/group.service';
 import { AdminService } from 'src/app/shared/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { Group } from 'src/app/interfaces/group';
 @Component({
   selector: 'app-view-project-activity',
   templateUrl: './view-project-activity.component.html',
@@ -17,17 +18,22 @@ export class ViewProjectActivityComponent implements OnInit,OnDestroy {
   fileDetails: any = {};
   coordinatorDetails: any = {}; //For saving coordinator details
   studentDetails:any={};
+  GroupData$:Observable<Group>
+  GroupData:any={}
   isOpen = true;//to be used for expension
   activities$:Observable<Activity[]>;
   activities:Activity[];
   //dtTrigger to be used in change ref
   dtTrigger:Subject<any>=new Subject();
   constructor(private toastr:ToastrService,private activityService:ActivityService,private adminService:AdminService,
-    private changeRef:ChangeDetectorRef,private route:Router) { }
+    private changeRef:ChangeDetectorRef,private route:Router,private groupService:GroupService) { }
 
   ngOnInit(): void {
     this.activityService.getStudentInformation().subscribe(result=>{this.studentDetails=result},error=>{console.log("Failed To get Student DATA")})
-    //console.log(this.studentDetails)
+    this.GroupData$=this.groupService.getGroupByStudent();
+    this.GroupData$.subscribe(result=>{
+      this.GroupData=result;
+    })
     this.activities$=this.activityService.getActivitiesForStudents();
     this.activities$.subscribe(result=>{
       this.coordinatorDetails=result;
@@ -36,6 +42,10 @@ export class ViewProjectActivityComponent implements OnInit,OnDestroy {
       this.changeRef.detectChanges();
       this.dtTrigger.next();
     },error=>{console.log("FAILED TO RETRIEVE ACTIVITIES")});
+  }
+  public onUpload():void{
+    let dataToPostOnLocal:any={};
+    this.uploadFileOnGit(this.fileToUpload,this.GroupData.gitProjectId,dataToPostOnLocal);
   }
   reloadActivities(){
     this.activities$=null;
@@ -77,31 +87,7 @@ export class ViewProjectActivityComponent implements OnInit,OnDestroy {
   }
   public fileChange(fileList: FileList): void {
     this.fileToUpload = fileList[0];
-  }
-  public uploadFileOnGit(file: File, gitProjectId: Number,data:any){
-    this.convertToBase64(file).subscribe(result => {
-      let fileJson: any = {};
-      data.FileName = file.name; data.FileType = file.type;
-      fileJson.commit_message = "Coordinator docs for activities";
-      fileJson.branch = "master";
-      let context = result.toString();
-      var newContent = context.replace('data:' + file.type + ';base64,', "");
-      fileJson.content = newContent;
-      this.activityService.postFileContentOnGit(gitProjectId, file.name, fileJson).subscribe( result => {
-        this.fileDetails.file_path=result.file_path;
-        data.branch=result.branch;
-        this.activityService.insertActivity(data).subscribe(result=>{
-          this.reloadActivities();
-          this.toastr.success("Activity Added Successfully");
-          console.log("ACTIVITY ADDED SUCCESSFULLY");
-        },error=>{
-          this.toastr.error("Error! Cannot add activity")
-          console.log("UNABLE TO ADD ACTIVITY");
-        });
-        console.log("File Uplaoded on Git Repository");
-      }, error => console.log("Unable to upload git repository"));
-    });
-    return this.fileDetails
+    //filewashere
   }
   public convertToBase64(file: Blob) {
     const result = new ReplaySubject<string>(1);
@@ -110,6 +96,26 @@ export class ViewProjectActivityComponent implements OnInit,OnDestroy {
     reader.onloadend = () => result.next(reader.result as string);
     return result;
   }
+  public uploadFileOnGit(file: File, gitProjectId: Number,data:any){
+    console.log(file)
+    this.convertToBase64(file).subscribe(result => {
+      let fileJson: any = {};
+      data.FileName = file.name; data.FileType = file.type;
+      fileJson.commit_message = "Coordinator docs for activities";
+      fileJson.branch = "master";
+      let context = result.toString();
+      var newContent = context.replace('data:' + file.type + ';base64,', "");
+      fileJson.content = newContent;
+      this.activityService.postFileContentOnGitForStudent(gitProjectId, file.name, fileJson).subscribe( result => {
+        this.fileDetails.file_path=result.file_path;
+        data.branch=result.branch;
+        //call local api to post file details here
+        console.log("File Uplaoded on Git Repository");
+      }, error => console.log("Unable to upload git repository"));
+    });
+    return this.fileDetails
+  }
+
   onClick(){
     this.route.navigateByUrl('home/student/root');
   }

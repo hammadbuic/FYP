@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/interfaces/student';
 import { Supervisor } from 'src/app/interfaces/supervisor';
 import { AdminService } from 'src/app/shared/admin.service';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private service:AdminService
+    private service:AdminService,
   ) { }
 
   ngOnInit(): void {

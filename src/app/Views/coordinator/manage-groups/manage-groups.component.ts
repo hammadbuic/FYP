@@ -138,6 +138,10 @@ dtTrigger:Subject<any>=new Subject();
         //   console.log(result);
         // })
         this.groupService.getCoordinator().subscribe(result=>{this.coordinatorDetails=result});
+        this.groups$=this.groupService.getGroups();
+        this.groups$.subscribe(result=>{
+          this.groups=result;
+        })
   }
   //loading add group modal
   onAddGroup(){

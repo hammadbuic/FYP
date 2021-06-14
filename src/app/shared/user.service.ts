@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 })
 export class UserService {
   readonly BaseURI = 'http://localhost:51528/api'
+  private getUserProfileURL:string="/userProfile/GetUserDataForProfile/"
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router,private adminService:AdminService) { }
   formModel = this.fb.group({
     FullName: [''],
@@ -73,6 +74,9 @@ export class UserService {
   }
   getUserProfile():Observable<Users> {
     return this.http.get<Users>(this.BaseURI + '/UserProfile');
+  }
+  getProfileData():Observable<any>{
+    return this.http.get(this.BaseURI+this.getUserProfileURL);
   }
   roleMatch(allowedRoles): boolean {
     var isMatch = false;

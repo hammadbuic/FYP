@@ -22,9 +22,10 @@
                     {{ activity?.description }}
                 </div>
                 <div class="timeline-footer">
-                    <a class="btn btn-success" (click)=onDownload(activity)>Download Attachment</a>
-                    <a class="btn btn-success" *ngIf="studentDetails.groupId!=null">Submit File</a>
-                </div>
+                    <a class="btn btn-success" (click)=onDownload(activity) >Download Attachment</a>
+                    <input class="btn btn-success" type="file" name="File" id="File" *ngIf="studentDetails.groupId!=null" (change)="fileChange($event.target.files)">
+                    <a class="btn btn-primary" (click)=onUpload(activity) >Upload Attachment</a>
+                  </div>
             </accordion-group>
         </accordion>
 

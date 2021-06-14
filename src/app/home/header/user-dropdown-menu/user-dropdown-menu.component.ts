@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild,HostListener,ElementRef,Renderer2,} from '@angular/core';
+import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Users } from 'src/app/interfaces/users';
@@ -13,6 +14,7 @@ import {UserService} from "src/app/shared/user.service";
 export class UserDropdownMenuComponent implements OnInit {
   userDetails$:Observable<Users>
   userDetails:Users={};
+  isAdmin:boolean=false;
   @ViewChild('dropdownMenu', { static: false }) dropdownMenu;
   @HostListener('document:click', ['$event'])
 
@@ -21,7 +23,8 @@ export class UserDropdownMenuComponent implements OnInit {
       this.hideDropdownMenu();
     }
   }
-  constructor(private elementRef: ElementRef, private renderer: Renderer2,private services:UserService,private toast:ToastrService) { }
+  constructor(private elementRef: ElementRef,
+    private route:Router, private renderer: Renderer2,private services:UserService,private toast:ToastrService) { }
 
   ngOnInit(): void {
     this.userDetails$=this.services.getUserProfile();

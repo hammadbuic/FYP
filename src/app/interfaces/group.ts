@@ -6,4 +6,7 @@ export interface Group {
     projectId:Number,
     projectName:string,
     projectDescription:string,
+    created_at:string,
+    gitProjectId:string,
+    http_url_to_repo:string
 }

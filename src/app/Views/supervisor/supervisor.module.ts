@@ -7,7 +7,7 @@ import { ViewGroupComponent } from './view-group/view-group.component';
 import { SeeDocsComponent } from './see-docs/see-docs.component';
 import { GotoGitlabComponent } from './goto-gitlab/goto-gitlab.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [SupervisorComponent, ViewGroupComponent, SeeDocsComponent, GotoGitlabComponent],
@@ -15,6 +15,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     CommonModule,
     SupervisorRoutingModule,
     AccordionModule,
+    NgxSpinnerModule
   ]
 })
 export class SupervisorModule { }

@@ -67,6 +67,10 @@ export class ActivityService {
   postFileContentOnGit(docRepoId:Number,fileName:string,gitFileContent):Observable<any>{
     return this.http.post('@api-x/'+this.GitURL+this.fileUploadOnGitURL+docRepoId+this.fileUploadOnGitURL1+fileName,gitFileContent);
   }
+    //Uploads file on the coordinator document repos
+    postFileContentOnGitForStudent(docRepoId:Number,fileName:string,gitFileContent):Observable<any>{
+      return this.http.post('@api-x/'+this.GitURL+this.fileUploadOnGitURL+docRepoId+this.fileUploadOnGitURL1+fileName,gitFileContent);
+    }
   //getRaw File From Git
   getRawFileGit(docRepoId:Number,file_path:string):Observable<any>{
     return this.http.get<any>('@api-x/'+this.GitURL+this.fileUploadOnGitURL+docRepoId+this.fileUploadOnGitURL1+file_path);

@@ -26,6 +26,7 @@ import { AdminService } from './shared/admin.service';
 import { ProfileComponent } from './Views/Common/profile/profile.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxSpinnerModule } from "ngx-spinner";
 //import { AssignCoordinatorComponent } from './Modules/Admin/assign-coordinator/assign-coordinator.component';
 
 
@@ -60,6 +61,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     SelectDropDownModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [UserService,{
     provide:HTTP_INTERCEPTORS,

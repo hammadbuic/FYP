@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/shared/admin.service';
 import { Observable, Subject } from 'rxjs';
 import { Student } from 'src/app/interfaces/student';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-manage-students',
   templateUrl: './manage-students.component.html',
@@ -53,7 +53,7 @@ export class ManageStudentsComponent implements OnInit, OnDestroy {
     dtTrigger:Subject<any>=new Subject();
     //Data Table directive
     @ViewChild(DataTableDirective) dtElement:DataTableDirective;
-  constructor(private service:AdminService,private modalService:BsModalService,
+  constructor(private service:AdminService,private modalService:BsModalService,private spinner:NgxSpinnerService,
     private fb:FormBuilder,private changeRef:ChangeDetectorRef,private toastr:ToastrService,private route:Router) { }
 
   ngOnInit(): void {

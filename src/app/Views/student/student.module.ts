@@ -8,7 +8,7 @@ import { ViewNewsfeedComponent } from './view-newsfeed/view-newsfeed.component';
 import { SubmitDocsComponent } from './submit-docs/submit-docs.component';
 import { GotoGitComponent } from './goto-git/goto-git.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [StudentComponent, ViewProjectActivityComponent, ViewNewsfeedComponent, SubmitDocsComponent, GotoGitComponent],
@@ -16,6 +16,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     CommonModule,
     StudentRoutingModule,
     AccordionModule,
+    NgxSpinnerModule,
   ]
 })
 export class StudentModule { }

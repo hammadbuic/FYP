@@ -21,7 +21,9 @@ export class GroupService {
   private updateStudentsByGroupURL='/groups/updateStudentsByGroupId/';
   private getCoordinatorURL='/coordinator/GetCoordinator/';
   private gitProjectCreationURL='/projects/';
-  private assignMembersOnGitURL='/members/'
+  private assignMembersOnGitURL='/members/';
+  private getGroupByStudentURL='/groups/GetGroupsByStudent';
+  private getGroupBySupervisorURL='/groups/getgroupsbysupervisor';
   private groups$:Observable<Group[]>;
   getGroups():Observable<Group[]>{
     if(!this.groups$)
@@ -66,6 +68,13 @@ export class GroupService {
   //assigning students on git repository
   assignMembersOnGitRepo(gitRepoId:Number,assignStudentGit:any):Observable<any>{
     return this.http.post<any>('@api-x/'+this.GitURL+this.gitProjectCreationURL+gitRepoId+this.assignMembersOnGitURL,assignStudentGit);
+  }
+  //get Group Data of the student
+  getGroupByStudent():Observable<Group>{
+    return this.http.get<Group>(this.BaseURL+this.getGroupByStudentURL);
+  }
+  getGroupsBySupervisor():Observable<Group[]>{
+    return this.http.get<Group[]>(this.BaseURL+this.getGroupBySupervisorURL);
   }
   clearCache(){
     this.groups$=null;

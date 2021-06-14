@@ -11,14 +11,10 @@
       <li class="user-header bg-primary">
 
         <p>
-          {{userDetails?.fullName}} - Role
-          <small>Dates if you want</small>
+          {{userDetails?.fullName}}
         </p>
       </li>
       <li class="user-footer">
-        <a [routerLink]="['/profile']" class="btn btn-default btn-flat">
-          Profile
-        </a>
         <a (click)="logout()" class="btn btn-default btn-flat float-right"
           >Sign out</a
         >

@@ -1,7 +1,14 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
-
+import {
+  Event,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+} from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +18,10 @@ export class HomeComponent implements OnInit {
   public sidebarMenuOpened = false;
   @ViewChild('contentWrapper', { static: false }) contentWrapper;
 
-  constructor(private renderer: Renderer2,private router:Router,private service:UserService) { }
+  constructor(private renderer: Renderer2, private spinner: NgxSpinnerService,
+    private router:Router,private service:UserService) {
+
+    }
   ngOnInit(): void {
     this.renderer.removeClass(document.querySelector('app-root'), 'login-page');
     this.renderer.removeClass(
